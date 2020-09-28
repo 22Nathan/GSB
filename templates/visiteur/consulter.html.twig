@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VisiteurController!{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1> {{ controller_name }}! ✅</h1>
+</div>
+
+<div>
+	 {{sql["idVisiteur"]}} 
+	 {{sql["mois"]}} 
+	 {{sql["nbJustificatifs"]}} 
+	 {{sql["montantValide"]}} 
+	 {{sql["dateModif"]}}
+	 {{sql["idEtat"]}}
+</div>
+
+{% endblock %}
