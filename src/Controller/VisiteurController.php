@@ -5,15 +5,19 @@ namespace App\Controller;
 use App\Controller ;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request ;
+use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType ;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType ;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType ;
 use Symfony\Component\Form\Extension\Core\Type\ResetType ;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class VisiteurController extends AbstractController
 {
+    
+    /*------------------------------------------------------------------------------------------------*/
     
     public function index()
     {
@@ -55,25 +59,28 @@ class VisiteurController extends AbstractController
 		
     }
     
+    /*------------------------------------------------------------------------------------------------*/
     
-    
-    
-    public function consulter($mois)
+    public function consulter()
     {
+	
+        /*$data = $this->get('data');*/
+        #$aaa = $data['mois'].$data['annee'] ;
+        
+	/*$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');	
+        $sql = $pdo->prepare("select * from FicheFrais where mois = :mois") ;
+        $sql->bindParam(':mois', $data['mois']);
+        $sql->execute() ;
+        $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;*/
 		
-		###
-		$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');	
-        $sql = "select * from FicheFrais where mois = $mois" ;     
-        $data = $pdo->query($sql) ;
-        $aaa = $data->fetch() ;
-        ###
-		
-        return $this->render('visiteur/consulter.html.twig', [
-            'controller_name' => 'VisiteurController',
-            'sql' => $aaa,
-          
-        ]);
+       /* if ( $b1['mois'] == $data['mois'] && $b1['annee'] == $data['annee'] ) {
+            return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
+	}*/
+        
+        return $this->render( 'visiteur/consulter.html.twig' );
     }
+    
+    /*------------------------------------------------------------------------------------------------*/
     
     public function saisir()
     {
@@ -82,6 +89,8 @@ class VisiteurController extends AbstractController
         ]);
     }
     
+    /*------------------------------------------------------------------------------------------------*/
+    
     public function menu()
     {
         return $this->render('visiteur/menu.html.twig', [
@@ -89,26 +98,61 @@ class VisiteurController extends AbstractController
         ]);
     }
     
+    /*------------------------------------------------------------------------------------------------*/
+    
     public function saisirMois()
     {
-        #
+        
 		$request = Request::createFromGlobals() ;
-				
-		$form = $this->createFormBuilder(  )
-			->add( 'mois' , TextType::class )
-			->add( 'valider' , SubmitType::class )
-			->add( 'annuler' , ResetType::class )
-			->getForm() ;
-			
-		$form->handleRequest( $request ) ;
-		
-		if ( $form->isSubmitted() && $form->isValid() ) {
-			$data = $form->getData() ;
-			return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
-			#return array($this->redirectToRoute( 'visiteur/consulter' ) ,
-			 #$this->forward( 'VisiteurController::consulter', [ 'mois' => $data  ] )) ;
-		}		
-		return $this->render( 'visiteur/saisirMois.html.twig', array( 'formulaire' => $form->createView() ) ) ;
-		#
+                
+                $builder = $this->createFormBuilder(  )
+                  ->add('mois', ChoiceType::class, [
+                  'choices'  => [
+                  '01' => '01',
+                  '02' => '02',
+                  '03' => '03',
+                  '04' => '04',
+                  '05' => '05',
+                  '06' => '06',
+                  '07' => '07',
+                  '08' => '08',
+                  '09' => '09',
+                  '10' => '10',
+                  '11' => '11', 
+                  '12' => '12',  
+                      ] ])
+                  ->add('annee', ChoiceType::class, [
+                  'choices'  => [
+                  '2018' => '2018',
+                  '2019' => '2019',
+                  '2020' => '2020',
+                      ] ])      
+                ->add( 'valider' , SubmitType::class )
+		->add( 'annuler' , ResetType::class )
+		->getForm() ;    
+                    
+                $builder->handleRequest( $request ) ;
+                
+                if ( $builder->isSubmitted() && $builder->isValid() ) {
+			$data = $builder->getData() ;
+                        
+                        $aaa = sprintf("%02d%04d",$data['mois'],$data['annee']) ;
+                        
+                        $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
+                        
+                        $sql = $pdo->prepare("select * from FicheFrais where mois = :mois") ;
+                        $sql->bindParam(':mois', $aaa);
+                        $sql->execute() ;
+                        $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;    
+                        
+                        if ( $b1['mois'] == $aaa ) {
+                        return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
+                        }
+
+                }		
+		return $this->render( 'visiteur/saisirMois.html.twig', array( 'formulaire' => $builder->createView() ) ) ;        
+
     }
+    
+    /*------------------------------------------------------------------------------------------------*/
 }

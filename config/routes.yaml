@@ -19,6 +19,7 @@ visiteur/consulter:
       path: /visiteur/consulter/
       controller: App\Controller\VisiteurController::consulter
       
+      
 visiteur/saisir:      
       path: /visiteur/saisir
       controller: App\Controller\VisiteurController::saisir    
