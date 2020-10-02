@@ -77,7 +77,7 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
 
 <div class=\"example-wrapper\">
    
-
+<div>    
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href=\"";
@@ -87,9 +87,9 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
         <li>Your template at <code><a href=\"";
         // line 17
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/visiteur/index.html.twig", 0), "html", null, true);
-        echo "\">templates/visiteur/index.html.twig</a></code></li>
+        echo "\">templates/visiteur/saisirMois.html.twig</a></code></li>
     </ul>
-    
+</div>    
     ";
         // line 20
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 20, $this->source); })()), 'form');
@@ -131,13 +131,13 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
 
 <div class=\"example-wrapper\">
    
-
+<div>    
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/VisiteurController.php'|file_link(0) }}\">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}\">templates/visiteur/index.html.twig</a></code></li>
+        <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}\">templates/visiteur/saisirMois.html.twig</a></code></li>
     </ul>
-    
+</div>    
     {{ form(formulaire) }}
     
 </div>

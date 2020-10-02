@@ -12,17 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType ;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType ;
 use Symfony\Component\Form\Extension\Core\Type\ResetType ;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class VisiteurController extends AbstractController
-{
-    
+{ 
     /*------------------------------------------------------------------------------------------------*/
     
-    public function index()
+    public function index(Request $test)
     {
-		
-		#
+
+           
+        
 		$request = Request::createFromGlobals() ;
 				
 		$form = $this->createFormBuilder(  )
@@ -51,6 +53,12 @@ class VisiteurController extends AbstractController
 				$b2 = $sql2->fetch(\PDO::FETCH_ASSOC) ;
 				
 				if ( $b1['login'] == $data['identifiant'] && $b2['mdp'] == $data['motDePasse'] ) {
+                                    
+                                    ###
+                                    $session = $test->getSession() ;
+                                    $session->set('id',$b1['id']) ;
+                                    ###
+                                    
 					return $this->redirectToRoute( 'visiteur/menu', array( 'data' => $data ) ) ;
 					}
 	
@@ -61,23 +69,17 @@ class VisiteurController extends AbstractController
     
     /*------------------------------------------------------------------------------------------------*/
     
-    public function consulter()
+    public function consulter( Request $request )
     {
-	
-        /*$data = $this->get('data');*/
-        #$aaa = $data['mois'].$data['annee'] ;
+            
+        $session = $request->getSession() ;
+         
+        $idVisiteur = $session->get( 'id' ) ;
         
-	/*$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');	
-        $sql = $pdo->prepare("select * from FicheFrais where mois = :mois") ;
-        $sql->bindParam(':mois', $data['mois']);
-        $sql->execute() ;
-        $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;*/
-		
-       /* if ( $b1['mois'] == $data['mois'] && $b1['annee'] == $data['annee'] ) {
-            return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
-	}*/
+        $session->clear();
         
-        return $this->render( 'visiteur/consulter.html.twig' );
+        #return new Response( $idVisiteur ) ;
+        return $this->render( 'visiteur/consulter.html.twig' , array( 'id' => $idVisiteur ) );
     }
     
     /*------------------------------------------------------------------------------------------------*/
@@ -151,7 +153,6 @@ class VisiteurController extends AbstractController
 
                 }		
 		return $this->render( 'visiteur/saisirMois.html.twig', array( 'formulaire' => $builder->createView() ) ) ;        
-
     }
     
     /*------------------------------------------------------------------------------------------------*/
