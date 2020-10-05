@@ -73,13 +73,14 @@ class VisiteurController extends AbstractController
     {
             
         $session = $request->getSession() ;
-         
-        $idVisiteur = $session->get( 'id' ) ;
+        $idV = $session->get( 'id' ) ;
+        $ficheFrais = $session->get( 'fiche' ) ;
+        #$session->clear();
         
-        $session->clear();
-        
-        #return new Response( $idVisiteur ) ;
-        return $this->render( 'visiteur/consulter.html.twig' , array( 'id' => $idVisiteur ) );
+        if ( $idV == $ficheFrais['idVisiteur'] ) {
+        return $this->render( 'visiteur/consulter.html.twig' , array( 'fiche' => $ficheFrais ) );
+        }
+        return $this->render( 'visiteur/consulter.html.twig' );
     }
     
     /*------------------------------------------------------------------------------------------------*/
@@ -102,7 +103,7 @@ class VisiteurController extends AbstractController
     
     /*------------------------------------------------------------------------------------------------*/
     
-    public function saisirMois()
+    public function saisirMois( Request $test )
     {
         
 		$request = Request::createFromGlobals() ;
@@ -146,6 +147,11 @@ class VisiteurController extends AbstractController
                         $sql->bindParam(':mois', $aaa);
                         $sql->execute() ;
                         $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;    
+                        
+                        ###
+                        $session = $test->getSession() ;
+                        $session->set('fiche',$b1) ;
+                        ###
                         
                         if ( $b1['mois'] == $aaa ) {
                         return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
