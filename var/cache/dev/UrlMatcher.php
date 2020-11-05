@@ -12,7 +12,7 @@ return [
         '/visiteur' => [[['_route' => 'visiteur', '_controller' => 'App\\Controller\\VisiteurController::index'], null, null, null, false, false, null]],
         '/visiteur/menu' => [[['_route' => 'visiteur/menu', '_controller' => 'App\\Controller\\VisiteurController::menu'], null, null, null, true, false, null]],
         '/visiteur/consulter' => [[['_route' => 'visiteur/consulter', '_controller' => 'App\\Controller\\VisiteurController::consulter'], null, null, null, true, false, null]],
-        '/visiteur/saisir' => [[['_route' => 'visiteur/saisir', '_controller' => 'App\\Controller\\VisiteurController::saisir'], null, null, null, false, false, null]],
+        '/visiteur/renseigner' => [[['_route' => 'visiteur/renseigner', '_controller' => 'App\\Controller\\VisiteurController::renseigner'], null, null, null, false, false, null]],
         '/visiteur/saisirMois' => [[['_route' => 'visiteur/saisirMois', '_controller' => 'App\\Controller\\VisiteurController::saisirMois'], null, null, null, false, false, null]],
         '/comptable' => [[['_route' => 'comptable', '_controller' => 'App\\Controller\\ComptableController::index'], null, null, null, false, false, null]],
         '/comptable/menu' => [[['_route' => 'comptable/menu', '_controller' => 'App\\Controller\\ComptableController::menu'], null, null, null, true, false, null]],

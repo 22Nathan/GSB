@@ -17,9 +17,11 @@
         <li>Your template at <code><a href="{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}">templates/visiteur/index.html.twig</a></code></li>
     </ul>
     
+    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    
     <a href="{{ path( 'visiteur/saisirMois' ) }}">Consulter</a>
     <br/>
-    <a href="{{ path( 'visiteur/saisir' ) }}">Saisir</a>
+    <a href="{{ path( 'visiteur/renseigner' ) }}">Renseigner</a>
     
 </div>
 {% endblock %}

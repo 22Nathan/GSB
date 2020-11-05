@@ -89,10 +89,20 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/visiteur/index.html.twig", 0), "html", null, true);
         echo "\">templates/visiteur/saisirMois.html.twig</a></code></li>
     </ul>
+    
+    <p> Connecté : ";
+        // line 20
+        echo twig_escape_filter($this->env, (isset($context["prenomV"]) || array_key_exists("prenomV", $context) ? $context["prenomV"] : (function () { throw new RuntimeError('Variable "prenomV" does not exist.', 20, $this->source); })()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, (isset($context["nomV"]) || array_key_exists("nomV", $context) ? $context["nomV"] : (function () { throw new RuntimeError('Variable "nomV" does not exist.', 20, $this->source); })()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, (isset($context["idVisiteur"]) || array_key_exists("idVisiteur", $context) ? $context["idVisiteur"] : (function () { throw new RuntimeError('Variable "idVisiteur" does not exist.', 20, $this->source); })()), "html", null, true);
+        echo "  </p>
+    
 </div>    
     ";
-        // line 20
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 20, $this->source); })()), 'form');
+        // line 23
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 23, $this->source); })()), 'form');
         echo "
     
 </div>
@@ -114,7 +124,7 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
 
     public function getDebugInfo()
     {
-        return array (  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  105 => 23,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -137,6 +147,9 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
         <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/VisiteurController.php'|file_link(0) }}\">src/Controller/VisiteurController.php</a></code></li>
         <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}\">templates/visiteur/saisirMois.html.twig</a></code></li>
     </ul>
+    
+    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    
 </div>    
     {{ form(formulaire) }}
     

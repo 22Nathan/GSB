@@ -90,15 +90,24 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
         echo "\">templates/visiteur/index.html.twig</a></code></li>
     </ul>
     
-    <a href=\"";
+    <p> Connecté : ";
         // line 20
+        echo twig_escape_filter($this->env, (isset($context["prenomV"]) || array_key_exists("prenomV", $context) ? $context["prenomV"] : (function () { throw new RuntimeError('Variable "prenomV" does not exist.', 20, $this->source); })()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, (isset($context["nomV"]) || array_key_exists("nomV", $context) ? $context["nomV"] : (function () { throw new RuntimeError('Variable "nomV" does not exist.', 20, $this->source); })()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, (isset($context["idVisiteur"]) || array_key_exists("idVisiteur", $context) ? $context["idVisiteur"] : (function () { throw new RuntimeError('Variable "idVisiteur" does not exist.', 20, $this->source); })()), "html", null, true);
+        echo "  </p>
+    
+    <a href=\"";
+        // line 22
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/saisirMois");
         echo "\">Consulter</a>
     <br/>
     <a href=\"";
-        // line 22
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/saisir");
-        echo "\">Saisir</a>
+        // line 24
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/renseigner");
+        echo "\">Renseigner</a>
     
 </div>
 ";
@@ -119,7 +128,7 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
 
     public function getDebugInfo()
     {
-        return array (  100 => 22,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  109 => 24,  104 => 22,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -143,9 +152,11 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
         <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}\">templates/visiteur/index.html.twig</a></code></li>
     </ul>
     
+    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    
     <a href=\"{{ path( 'visiteur/saisirMois' ) }}\">Consulter</a>
     <br/>
-    <a href=\"{{ path( 'visiteur/saisir' ) }}\">Saisir</a>
+    <a href=\"{{ path( 'visiteur/renseigner' ) }}\">Renseigner</a>
     
 </div>
 {% endblock %}

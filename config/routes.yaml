@@ -20,9 +20,9 @@ visiteur/consulter:
       controller: App\Controller\VisiteurController::consulter
       
       
-visiteur/saisir:      
-      path: /visiteur/saisir
-      controller: App\Controller\VisiteurController::saisir    
+visiteur/renseigner:      
+      path: /visiteur/renseigner
+      controller: App\Controller\VisiteurController::renseigner    
       
 visiteur/saisirMois:
       path: /visiteur/saisirMois
