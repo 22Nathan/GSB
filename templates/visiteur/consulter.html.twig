@@ -18,15 +18,24 @@
     </ul>
     
     <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    
-    
+    </br>
+    {#
         {{ fiche['idVisiteur'] }} </br>
         {{ fiche['mois'] }} </br>
         {{ fiche['nbJustificatifs'] }} </br>
         {{ fiche['montantValide'] }} </br>
         {{ fiche['dateModif'] }} </br>
         {{ fiche['idEtat'] }} 
-        
+    #}    
+    
+    <p> etat de la fiche : {{ fiche['id'] }} </p> 
+    <p> libelle de la fiche : {{ fiche['libelle'] }} </p> 
+    <p> mois de la fiche : {{ fiche['mois'] }} </p> 
+    <p> date de modification de la fiche : {{ fiche['dateModif'] }} </p> 
+    <p> quantite fiche : {{ fiche['quantite'] }} </p> 
+    <p> montant de la fiche : {{ fiche['montant'] }} </p> 
+    <p> date de la fiche : {{ fiche['date'] }} </p> 
+    
     
 </div>
 	 

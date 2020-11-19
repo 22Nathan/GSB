@@ -9,11 +9,25 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
+    <h1>Hello !!! ✅</h1>
 
     <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    </br>
     
+    <p> Element forfaitisé </p>
     {{ form(formulaire) }}
+    <p> Total élements forfaitisés saisis : {{ total }} euro(s) </p>
     
+    </br>
+    <p> Element hors forfait </p>
+    {{ form(formulaire2) }}
+    <p> Element hors forfait saisis :  euro(s) </p>
+    
+    </br>
+     
+    {#<p> éléments forfaitisés :  </p> 
+    <p> éléments hors forfait :  </p> #}
+    </br>
+
 </div>
 {% endblock %}

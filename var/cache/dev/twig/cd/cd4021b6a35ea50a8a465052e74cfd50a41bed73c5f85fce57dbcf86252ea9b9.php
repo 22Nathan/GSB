@@ -95,6 +95,13 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 20, $this->source); })()), 'form');
         echo "
     
+    </br>
+    
+    ";
+        // line 24
+        echo twig_escape_filter($this->env, (isset($context["connection"]) || array_key_exists("connection", $context) ? $context["connection"] : (function () { throw new RuntimeError('Variable "connection" does not exist.', 24, $this->source); })()), "html", null, true);
+        echo "
+    
 </div>
 ";
         
@@ -114,7 +121,7 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
 
     public function getDebugInfo()
     {
-        return array (  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  102 => 24,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -139,6 +146,10 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
     </ul>
     
     {{ form(formulaire) }}
+    
+    </br>
+    
+    {{ connection }}
     
 </div>
 {% endblock %}

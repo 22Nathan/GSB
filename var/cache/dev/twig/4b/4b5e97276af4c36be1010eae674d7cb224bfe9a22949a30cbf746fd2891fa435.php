@@ -109,6 +109,13 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/renseigner");
         echo "\">Renseigner</a>
     
+    </br>
+    
+    ";
+        // line 28
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 28, $this->source); })()), 'form');
+        echo "
+    
 </div>
 ";
         
@@ -128,7 +135,7 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
 
     public function getDebugInfo()
     {
-        return array (  109 => 24,  104 => 22,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  116 => 28,  109 => 24,  104 => 22,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -157,6 +164,10 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
     <a href=\"{{ path( 'visiteur/saisirMois' ) }}\">Consulter</a>
     <br/>
     <a href=\"{{ path( 'visiteur/renseigner' ) }}\">Renseigner</a>
+    
+    </br>
+    
+    {{ form(formulaire) }}
     
 </div>
 {% endblock %}
