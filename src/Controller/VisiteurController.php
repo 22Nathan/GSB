@@ -115,6 +115,7 @@ class VisiteurController extends AbstractController
         $today = getdate() ;
         $todayMonth = $today['mon'] ;
         $todayYear = $today['year'] ;
+        $todaymy = $todayMonth."-".$todayYear ;
         $auj = date('Y-m-d') ;
         if( strlen($todayMonth) != 2 ){
             $todayMonth = 0 . $todayMonth ;
@@ -127,10 +128,10 @@ class VisiteurController extends AbstractController
         $request = Request::createFromGlobals() ;                   
                 
 		$form = $this->createFormBuilder(  )
-			->add( 'ETP' , TextType::class )
-                        ->add( 'KM' , TextType::class )
-                        ->add( 'NUI' , TextType::class )
-                        ->add( 'REP' , TextType::class )
+			->add( 'ETP' , TextType::class , ['data' => 0] )
+                        ->add( 'KM' , TextType::class , ['data' => 0] )
+                        ->add( 'NUI' , TextType::class , ['data' => 0] )
+                        ->add( 'REP' , TextType::class , ['data' => 0] )
 			->add( 'suivant' , SubmitType::class )
 			->add( 'modifier' , ResetType::class )
                         ->add( 'valider' , SubmitType::class )
@@ -158,17 +159,99 @@ class VisiteurController extends AbstractController
                         $montNUI = 80.00*$data['NUI'];
                         $montREP = 25.00*$data['REP'];
                         $montTotal = $montETP + $montKM + $montNUI + $montREP ;
+                        $totalF = [ '1' => " nombre d'étapes : ".$data['ETP'] ,
+                                    '2' => " nombre de kilometres : ".$data['KM'] ,
+                                    '3' => " nombre de nuits : ".$data['NUI'] ,
+                                    '4' => " nombre de repas : ".$data['REP'] ,
+                                ];
                         
 				$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
                                 
-                                $sql = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :idV , :mois , :idF , :quantite )") ;
-                                $sql->bindParam(':idV', $idV);
-                                $sql->bindParam(':mois', $aaa);
-                                $sql->bindParam(':idF', $data['idFraisForfait']);
-                                $sql->bindParam(':quantite', $data['quantite']);
+                                $sqlb = $pdo->prepare("select * from LigneFraisForfait where idVisiteur = :id and mois = :mois and idFraisForfait = 'ETP'") ;
+                                $sqlb->bindParam(':id', $idV);
+                                $sqlb->bindParam(':mois', $aaa);
+                                $sqlb->execute() ;
+				$check1 = $sqlb->fetch(\PDO::FETCH_ASSOC) ;
+                                $count1 = $sqlb->rowCount() ;
+                                if ( $count1 == 0 ) {
+                                    $sql = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :id , :mois , 'ETP' , :quantite )") ;
+                                    $sql->bindParam(':id', $idV);
+                                    $sql->bindParam(':mois', $aaa);
+                                    $sql->bindParam(':quantite', $data['ETP']);
+                                }
+                                else {
+                                    $sql = $pdo->prepare("update LigneFraisForfait set quantite = :quantite where idVisiteur = :id and mois = :mois and idFraisForfait = 'ETP'") ;
+                                    $add = $check1['quantite'] + $data['ETP'] ;
+                                    $sql->bindParam(':quantite', $add);
+                                    $sql->bindParam(':id', $idV);
+                                    $sql->bindParam(':mois', $aaa);
+                                }
+                                
+                                $sqlc = $pdo->prepare("select * from LigneFraisForfait where idVisiteur = :id and mois = :mois and idFraisForfait = 'KM'") ;
+                                $sqlc->bindParam(':id', $idV);
+                                $sqlc->bindParam(':mois', $aaa);
+                                $sqlc->execute() ;
+				$check2 = $sqlc->fetch(\PDO::FETCH_ASSOC) ;
+                                $count2 = $sqlc->rowCount() ;
+                                if ( $count2 == 0 ) {
+                                    $sql2 = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :id , :mois , 'KM' , :quantite )") ;
+                                    $sql2->bindParam(':id', $idV);
+                                    $sql2->bindParam(':mois', $aaa);
+                                    $sql2->bindParam(':quantite', $data['KM']);
+                                }
+                                else {
+                                    $sql2 = $pdo->prepare("update LigneFraisForfait set quantite = :quantite where idVisiteur = :id and mois = :mois and idFraisForfait = 'KM'") ;
+                                    $add2 = $check2['quantite'] + $data['KM'] ;
+                                    $sql2->bindParam(':quantite', $add2);
+                                    $sql2->bindParam(':id', $idV);
+                                    $sql2->bindParam(':mois', $aaa);
+                                }
+                                
+                                $sqld = $pdo->prepare("select * from LigneFraisForfait where idVisiteur = :id and mois = :mois and idFraisForfait = 'NUI'") ;
+                                $sqld->bindParam(':id', $idV);
+                                $sqld->bindParam(':mois', $aaa);
+                                $sqld->execute() ;
+				$check3 = $sqld->fetch(\PDO::FETCH_ASSOC) ;
+                                $count3 = $sqld->rowCount() ;
+                                if ( $count3 == 0 ) {
+                                    $sql3 = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :id , :mois , 'NUI' , :quantite )") ;
+                                    $sql3->bindParam(':id', $idV);
+                                    $sql3->bindParam(':mois', $aaa);
+                                    $sql3->bindParam(':quantite', $data['NUI']);
+                                }
+                                else {
+                                    $sql3 = $pdo->prepare("update LigneFraisForfait set quantite = :quantite where idVisiteur = :id and mois = :mois and idFraisForfait = 'NUI'") ;
+                                    $add3 = $check3['quantite'] + $data['NUI'] ;
+                                    $sql3->bindParam(':quantite', $add3);
+                                    $sql3->bindParam(':id', $idV);
+                                    $sql3->bindParam(':mois', $aaa);
+                                }
+                                
+                                $sqle = $pdo->prepare("select * from LigneFraisForfait where idVisiteur = :id and mois = :mois and idFraisForfait = 'REP'") ;
+                                $sqle->bindParam(':id', $idV);
+                                $sqle->bindParam(':mois', $aaa);
+                                $sqle->execute() ;
+				$check4 = $sqle->fetch(\PDO::FETCH_ASSOC) ;
+                                $count4 = $sqle->rowCount() ;
+                                if ( $count4 == 0 ) {
+                                    $sql4 = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :id , :mois , 'REP' , :quantite )") ;
+                                    $sql4->bindParam(':id', $idV);
+                                    $sql4->bindParam(':mois', $aaa);
+                                    $sql4->bindParam(':quantite', $data['REP']);
+                                }
+                                else {
+                                    $sql4 = $pdo->prepare("update LigneFraisForfait set quantite = :quantite where idVisiteur = :id and mois = :mois and idFraisForfait = 'REP'") ;
+                                    $add4 = $check4['quantite'] + $data['REP'] ;
+                                    $sql4->bindParam(':quantite', $add4);
+                                    $sql4->bindParam(':id', $idV);
+                                    $sql4->bindParam(':mois', $aaa);
+                                }
                                 
                         if ( $form->getClickedButton() === $form->get('valider') ) {              
 				$sql->execute() ;
+                                $sql2->execute() ;
+                                $sql3->execute() ;
+                                $sql4->execute() ;
                         }   
                         
                         return $this->render( 'visiteur/renseigner.html.twig', [ 
@@ -180,6 +263,8 @@ class VisiteurController extends AbstractController
                                  'prenomV' => $prenom ,
                                  'nomV' => $nom ,
                                  'total' => $montTotal ,
+                                 'totalF' => $totalF ,
+                                 'todaymy' => $todaymy ,
 
                         ]);  
                 }
@@ -188,10 +273,6 @@ class VisiteurController extends AbstractController
                if ( $form2->isSubmitted() && $form2->isValid() ) {   
 			$data = $form->getData() ;
                         array( 'data' => $data ) ;
-                        $aff = [
-                            'montant' => null ,
-                           'montant2' => $data['montant'] ,
-                                ] ;
                         
                         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
 				
@@ -211,46 +292,12 @@ class VisiteurController extends AbstractController
                                  'data' => $data ,
                                  'prenomV' => $prenom ,
                                  'nomV' => $nom ,
-                                 'aff' => $aff ,
-                                 'total' => $montTotal ,    
-                                 #'fiche' => $fiche ,
-                                 #'fiche' => $ficheA ,
+                                 'total' => $montTotal , 
+                                 'totalF' => $totalF ,
+                                 'todaymy' => $todaymy ,   
                         ]);
                 }
-                        ###
-                        
-                        #if ( $form->getClickedButton() === $form->get('modifier') ) {        
-			#	$fiche['montantValide'] = null ;
-                        #}
-                        
-                                
-                                #$session->set('ficheA',$b1) ;
-                                #$session->set('tab',$tab) ;
-                                #$ficheA = $session->get( 'ficheA' ) ;                               
-		
-                #if ( $form->isSubmitted() && $form2->isSubmitted() ){
-                
-                #return $this->redirectToRoute( 'visiteur/renseigner', array( 'data' => $data ) ) ;                
-                #return $this->redirectToRoute( 'visiteur/renseigner' ) ;
-                #return $this->render( 'visiteur/renseigner.html.twig', array( 'formulaire' => $form->createView() ) ) ;                
-                #return $this->render( 'visiteur/renseigner.html.twig', [ 
-                #                 'formulaire' => $form->createView() ,
-                #                 'formulaire2' => $form2->createView() ,
-                #                 'controller_name' => 'VisiteurController',
-                #                 'idVisiteur' => $idV ,
-                #                 'data' => $data ,
-                #                 'prenomV' => $prenom ,
-                #                 'nomV' => $nom ,
-                #                 'fiche' => $fiche ,
-                #                 #'fiche' => $ficheA ,
-                #        ]);  
-
-                #}
-                
-                $aff = [
-                    'montant' => null,
-                    'montant2' => null ,
-                ] ;
+    
 
                 return $this->render( 'visiteur/renseigner.html.twig', [
                         'formulaire2' => $form2->createView() ,
@@ -258,8 +305,9 @@ class VisiteurController extends AbstractController
                         'idVisiteur' => $idV ,
                         'prenomV' => $prenom ,
                         'nomV' => $nom ,
-                        'aff' => $aff ,
                         'total' => $montTotal ,
+                        'totalF' => $totalF ,
+                        'todaymy' => $todaymy ,
                         ]); 
     }
                 
