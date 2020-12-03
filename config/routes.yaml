@@ -22,7 +22,21 @@ visiteur/consulter:
       
 visiteur/renseigner:      
       path: /visiteur/renseigner
-      controller: App\Controller\VisiteurController::renseigner    
+      controller: App\Controller\VisiteurController::renseigner  
+      
+visiteur/renseigner/ff:      
+      path: /visiteur/renseigner/ff
+      controller: App\Controller\VisiteurController::renseignerff
+      
+visiteur/renseigner/fhf:      
+      path: /visiteur/renseigner/fhf
+      controller: App\Controller\VisiteurController::renseignerfhf     
+      
+visiteur/renseigner/fhf/confirmation:      
+      path: /visiteur/renseigner/fhf/confirmation/{idff}
+      controller: App\Controller\VisiteurController::confirmation  
+      defaults: 
+          idff: 16
       
 visiteur/saisirMois:
       path: /visiteur/saisirMois

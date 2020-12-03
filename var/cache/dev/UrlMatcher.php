@@ -13,6 +13,8 @@ return [
         '/visiteur/menu' => [[['_route' => 'visiteur/menu', '_controller' => 'App\\Controller\\VisiteurController::menu'], null, null, null, true, false, null]],
         '/visiteur/consulter' => [[['_route' => 'visiteur/consulter', '_controller' => 'App\\Controller\\VisiteurController::consulter'], null, null, null, true, false, null]],
         '/visiteur/renseigner' => [[['_route' => 'visiteur/renseigner', '_controller' => 'App\\Controller\\VisiteurController::renseigner'], null, null, null, false, false, null]],
+        '/visiteur/renseigner/ff' => [[['_route' => 'visiteur/renseigner/ff', '_controller' => 'App\\Controller\\VisiteurController::renseignerff'], null, null, null, false, false, null]],
+        '/visiteur/renseigner/fhf' => [[['_route' => 'visiteur/renseigner/fhf', '_controller' => 'App\\Controller\\VisiteurController::renseignerfhf'], null, null, null, false, false, null]],
         '/visiteur/saisirMois' => [[['_route' => 'visiteur/saisirMois', '_controller' => 'App\\Controller\\VisiteurController::saisirMois'], null, null, null, false, false, null]],
         '/comptable' => [[['_route' => 'comptable', '_controller' => 'App\\Controller\\ComptableController::index'], null, null, null, false, false, null]],
         '/comptable/menu' => [[['_route' => 'comptable/menu', '_controller' => 'App\\Controller\\ComptableController::menu'], null, null, null, true, false, null]],
@@ -22,11 +24,13 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
+                .'|/visiteur/renseigner/fhf/confirmation(?:/([^/]++))?(*:93)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
-        35 => [
-            [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
+        35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+        93 => [
+            [['_route' => 'visiteur/renseigner/fhf/confirmation', 'idff' => 16, '_controller' => 'App\\Controller\\VisiteurController::confirmation'], ['idff'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],
