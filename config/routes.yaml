@@ -35,8 +35,6 @@ visiteur/renseigner/fhf:
 visiteur/renseigner/fhf/confirmation:      
       path: /visiteur/renseigner/fhf/confirmation/{idff}
       controller: App\Controller\VisiteurController::confirmation  
-      defaults: 
-          idff: 16
       
 visiteur/saisirMois:
       path: /visiteur/saisirMois

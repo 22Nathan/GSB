@@ -14,8 +14,7 @@
     <h1>Hello !!! ✅</h1>
 
     <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    <p> Reinseigner des frais hors forfait pour le mois : {{ todaymy }} </p>
-    </br>
+    <p> Reinseigner des frais hors forfait pour le mois courrant : {{ todaymy }} </p>
 
 
     <table>
@@ -35,7 +34,7 @@
          <td>{{ tab[i]['montant'] }}</td>
          {% set idff = tab[i]['id'] %}
          {#<td><a href="{{ path( 'visiteur/renseigner/fhf/confirmation' ) }}">Supprimer</a></td>#}
-         <td><a id="btn_delete" href="{{ path( 'visiteur/renseigner/fhf/confirmation/{idff}', { 'idff': 16 } ) }}" 
+         <td><a id="btn_delete" href="{{ path( 'visiteur/renseigner/fhf/confirmation', { 'idff': idff } ) }}" 
                 onclick="return confirm('Etes-vous sûr de vouloir supprimer : ')">Supprimer</a></td>
           </tr>
           {% endif %}
@@ -46,6 +45,8 @@
     
     <p> Element hors forfait : </p>
     {{ form(formulaire) }}
+    <br/>
+    <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
 
 </div>
 {% endblock %}

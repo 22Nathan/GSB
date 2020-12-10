@@ -90,7 +90,9 @@ class VisiteurController extends AbstractController
         $ficheFrais = $session->get( 'fiche' ) ;
         $prenom = $session->get( 'prenom' ) ;
         $nom = $session->get( 'nom' ) ;
+        $totalff = $session->get( 'totalff' ) ;
         #$session->clear();
+        if ( $totalff == null ) { $totalff = 0 ; }
         
         $form = $this->createFormBuilder(  )
                         ->add( 'SeDéconnecter' , SubmitType::class )
@@ -103,10 +105,12 @@ class VisiteurController extends AbstractController
                  }
         
         #return $this->render( 'visiteur/consulter.html.twig' , array( 'fiche' => $ficheFrais ) );
-        return $this->render( 'visiteur/consulter.html.twig' , [ 'fiche' => $ficheFrais ,
+        return $this->render( 'visiteur/consulter.html.twig' , [ 
+            'fiche' => $ficheFrais ,
             'idVisiteur' => $idV ,
             'prenomV' => $prenom ,
             'nomV' => $nom ,
+            'totalff' => $totalff ,
             'formulaire' => $form->createView() ,
             ] );
     }
@@ -384,23 +388,41 @@ class VisiteurController extends AbstractController
                 
 		$form->handleRequest( $request ) ;
  
-		if ( $form->isSubmitted() && $form->isValid() ) {
+		//if ( $form->isSubmitted() && $form->isValid() ) {
                 #if ( $form->getClickedButton() === $form->get('suivant') ) {
 			$data = $form->getData() ;
                         array( 'data' => $data ) ;
                         
-                        $montETP = 110.00*$data['ETP'];
+                     /* $montETP = 110.00*$data['ETP'];
                         $montKM = 0.62*$data['KM'];
                         $montNUI = 80.00*$data['NUI'];
                         $montREP = 25.00*$data['REP'];
-                        $montTotal = $montETP + $montKM + $montNUI + $montREP ;
-                        $totalF = [ '1' => " nombre d'étapes : ".$data['ETP'] ,
+                        $montTotal = $montETP + $montKM + $montNUI + $montREP ;*/
+                        /*$totalF = [ '1' => " nombre d'étapes : ".$data['ETP'] ,
                                     '2' => " nombre de kilometres : ".$data['KM'] ,
                                     '3' => " nombre de nuits : ".$data['NUI'] ,
                                     '4' => " nombre de repas : ".$data['REP'] ,
-                                ];
+                                ];*/
                         
-				$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
+			$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
+                                
+                        $sqlw = $pdo->prepare("select quantite from LigneFraisForfait where idVisiteur = :id and mois = :mois");
+                        $sqlw->bindParam(':id', $idV);
+                        $sqlw->bindParam(':mois', $aaa);
+                        $sqlw->execute();
+                        $res = $sqlw->fetchAll(\PDO::FETCH_ASSOC);
+                        $totalF = [ '1' => " nombre d'étapes : ".$res[0]['quantite'] ,
+                                    '2' => " nombre de kilometres : ".$res[1]['quantite'] ,
+                                    '3' => " nombre de nuits : ".$res[2]['quantite'] ,
+                                    '4' => " nombre de repas : ".$res[3]['quantite'] , ];
+                        $montETP = 110.00*$res[0]['quantite'];
+                        $montKM = 0.62*$res[1]['quantite'];
+                        $montNUI = 80.00*$res[2]['quantite'];
+                        $montREP = 25.00*$res[3]['quantite'];
+                        $montTotal = $montETP + $montKM + $montNUI + $montREP ;
+                        #
+                        $session->set('totalff',$montTotal) ;
+                        #
                                 
                                 $sqlb = $pdo->prepare("select * from LigneFraisForfait where idVisiteur = :id and mois = :mois and idFraisForfait = 'ETP'") ;
                                 $sqlb->bindParam(':id', $idV);
@@ -519,7 +541,7 @@ class VisiteurController extends AbstractController
                                  'todaymy' => $todaymy ,
 
                         ]);  
-                }
+                //}
  
                 $totalF = [ '1' => " nombre d'étapes : 0" ,
                             '2' => " nombre de kilometres : 0" ,
@@ -566,7 +588,7 @@ class VisiteurController extends AbstractController
                         ->add( 'dateEngagement' , TextType::class , ['data' => $auj] )
                         ->add( 'libelle' , TextType::class )
                         ->add( 'montant' , TextType::class )
-                        ->add( 'suivant' , SubmitType::class )
+                        //->add( 'suivant' , SubmitType::class )
 			->add( 'annuler' , SubmitType::class )
                         ->add( 'valider' , SubmitType::class )
 			->getForm() ;
@@ -578,7 +600,8 @@ class VisiteurController extends AbstractController
 		$form->handleRequest( $request ) ;
                 //$form2->handleRequest( $request ) ;
                 
-                if ( $form->isSubmitted() && $form->isValid() ) {   
+                #instant unless afficher après un button submit
+                //if ( $form->isSubmitted() && $form->isValid() ) {   
 			$data = $form->getData() ;
                         array( 'data' => $data ) ;
                         
@@ -615,6 +638,13 @@ class VisiteurController extends AbstractController
                                 
                                 if ( $form->getClickedButton() === $form->get('valider') ) {              
                                     $sql->execute() ;
+                                    return $this->redirectToRoute( 'visiteur/renseigner/fhf', [
+                                         'formulaire' => $form->createView() ,
+                                         //'formulaire2' => $form2->createView() ,
+                                         'idVisiteur' => $idV ,
+                                         'prenomV' => $prenom ,
+                                         'nomV' => $nom ,
+                                         'todaymy' => $todaymy , ]);
                                 }                              
                                 
                                 return $this->render( 'visiteur/renseignerfhf.html.twig', [ 
@@ -629,7 +659,7 @@ class VisiteurController extends AbstractController
                                  'tab' => $tab ,
                                  'nbLigne' => $nbLigneRes ,   
                         ]);
-                }
+              //  }
     
                 /*if ( $form2->isSubmitted() && $form2->isValid() ) { 
                     if ( $form2->getClickedButton() === $form2->get('Supprimer') ) { 
@@ -710,6 +740,7 @@ class VisiteurController extends AbstractController
         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
         $req = $pdo->prepare("delete from LigneFraisHorsForfait where id = :id") ;
         $req->bindParam(':id', $idff);
+        $req->execute() ;
         
         /*return $this->render( 'visiteur/confirmation.html.twig', [
                         'idVisiteur' => $idV ,
@@ -718,9 +749,18 @@ class VisiteurController extends AbstractController
                         'formulaire' => $form->createView() ,
         ]);*/
         
-        return $this->redirectToRoute( 'visiteur/renseigner/fhf/confirmation', [
+        /*return $this->render( 'visiteur/confirmation.html.twig', [
                     'idff' => $idff ,
-        ] ) ;
+                    'prenomV' => $prenom ,
+                    'nomV' => $nom ,
+                    'idVisiteur' => $idV ,
+        ] ) ;*/
+        return $this->redirectToRoute('visiteur/renseigner/fhf' , [
+                    'idff' => $idff ,
+                    'prenomV' => $prenom ,
+                    'nomV' => $nom ,
+                    'idVisiteur' => $idV ,
+        ]);
     }
     
     /*------------------------------------------------------------------------------------------------*/
@@ -764,13 +804,23 @@ class VisiteurController extends AbstractController
                 $prenom = $session->get( 'prenom' ) ;
                 $nom = $session->get( 'nom' ) ;
                 $aa = '' ;
-      
+                
+                #Date
+                $today = getdate() ;
+                $todayYear = $today['year'] ;
+                $todayMonth = $today['mon'] ;
+                
+                #Calcul pour la liste déroulante
+                $todayYear2 = $todayYear - 1 ;
+                $todayYear3 = $todayYear - 2 ;
+                
 		$request = Request::createFromGlobals() ;
                 
                 $builder = $this->createFormBuilder(  )
                   ->add('mois', ChoiceType::class, [
                   'choices'  => [
-                  '01' => '01',
+                  $todayMonth => $todayMonth,
+                  '01' => '01',    
                   '02' => '02',
                   '03' => '03',
                   '04' => '04',
@@ -780,14 +830,13 @@ class VisiteurController extends AbstractController
                   '08' => '08',
                   '09' => '09',
                   '10' => '10',
-                  '11' => '11', 
-                  '12' => '12',  
+                  '11' => '11',   
                       ] ])
                   ->add('annee', ChoiceType::class, [
                   'choices'  => [
-                  '2018' => '2018',
-                  '2019' => '2019',
-                  '2020' => '2020',
+                  $todayYear => $todayYear,
+                  $todayYear2 => $todayYear2,
+                  $todayYear3 => $todayYear3,
                       ] ])      
                 ->add( 'valider' , SubmitType::class )
 		->add( 'annuler' , ResetType::class )
@@ -808,18 +857,15 @@ class VisiteurController extends AbstractController
                         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
                         
                         #$sql = $pdo->prepare("select * from FicheFrais where mois = :mois and idVisiteur = :idVisiteur") ;
-                        $sql = $pdo->prepare( 'select e.id,
-                            e.libelle ,
-                            f.mois ,
-                            f.dateModif,
-                            l.quantite,
-                            LigneFraisHorsForfait.montant,
-                            LigneFraisHorsForfait.libelle,
-                            LigneFraisHorsForfait.date
+                        $sql = $pdo->prepare( 
+                           'select e.id, e.libelle, f.mois, f.dateModif, l.quantite,
+                            LigneFraisHorsForfait.montant, LigneFraisHorsForfait.libelle, LigneFraisHorsForfait.date
                             from FicheFrais as f inner join Etat as e
                             on f.idEtat = e.id  
-                            inner join LigneFraisForfait as l on f.idVisiteur = l.idVisiteur
-                            inner join LigneFraisHorsForfait on f.idVisiteur = LigneFraisHorsForfait.idVisiteur
+                            inner join LigneFraisForfait as l 
+                            on f.idVisiteur = l.idVisiteur
+                            inner join LigneFraisHorsForfait 
+                            on f.idVisiteur = LigneFraisHorsForfait.idVisiteur
                             where f.mois = :mois and f.idVisiteur = :idVisiteur ;');
                         
                         $sql->bindParam(':mois', $aaa);
@@ -830,6 +876,7 @@ class VisiteurController extends AbstractController
                         ###
                         $session->set('fiche',$b1) ;
                         ###
+                        
                         
                         if ( $b1['mois'] == $aaa ) {
                         #return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;

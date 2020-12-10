@@ -114,6 +114,11 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
         // line 27
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire2"]) || array_key_exists("formulaire2", $context) ? $context["formulaire2"] : (function () { throw new RuntimeError('Variable "formulaire2" does not exist.', 27, $this->source); })()), 'form');
         echo "
+    </br>
+    <a id=\"btn_delete\" href=\"";
+        // line 29
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/menu");
+        echo "\">Retour au menu</a>
 </div>
 ";
         
@@ -133,7 +138,7 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
 
     public function getDebugInfo()
     {
-        return array (  115 => 27,  110 => 25,  105 => 23,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  120 => 29,  115 => 27,  110 => 25,  105 => 23,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -165,6 +170,8 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
     {{ mess }}
     </br>
     {{ form(formulaire2) }}
+    </br>
+    <a id=\"btn_delete\" href=\"{{ path( 'visiteur/menu' ) }}\">Retour au menu</a>
 </div>
 {% endblock %}
 ", "visiteur/saisirMois.html.twig", "/var/www/html/GSB/templates/visiteur/saisirMois.html.twig");

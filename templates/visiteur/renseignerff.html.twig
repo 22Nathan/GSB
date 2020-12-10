@@ -13,18 +13,17 @@
 
     <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
     <p> Reinseigner mes frais pour le mois : {{ todaymy }}</p>
-    </br>
     
     <p> Element forfaitisé </p>
     {{ form(formulaire) }}
     
     <p> Total : {{ total }} euro(s) </br>
-        Elements forfaitisés saisis : </br> - {{ totalF[1] }} 
+        Elements forfaitisés saisis pour le mois courrant : </br> - {{ totalF[1] }} 
                                       </br> - {{ totalF[2] }}
                                       </br> - {{ totalF[3] }}
                                       </br> - {{ totalF[4] }}</p>
     
-    </br>
+    <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
 
 </div>
 {% endblock %}

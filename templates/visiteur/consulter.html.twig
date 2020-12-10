@@ -6,6 +6,8 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
+    td, th { border: 1px solid #dddddd; text-align: left; padding: 8px;}
 </style>
 
 <div class="example-wrapper">
@@ -20,23 +22,35 @@
     <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
     {{ form(formulaire) }}
     </br>
-    {#
-        {{ fiche['idVisiteur'] }} </br>
-        {{ fiche['mois'] }} </br>
-        {{ fiche['nbJustificatifs'] }} </br>
-        {{ fiche['montantValide'] }} </br>
-        {{ fiche['dateModif'] }} </br>
-        {{ fiche['idEtat'] }} 
-    #}    
+
+    {% set total = totalff + fiche['montant'] %}
     
-    <p> etat de la fiche : {{ fiche['id'] }} </p> 
-    <p> libelle de la fiche : {{ fiche['libelle'] }} </p> 
-    <p> mois de la fiche : {{ fiche['mois'] }} </p> 
-    <p> date de modification de la fiche : {{ fiche['dateModif'] }} </p> 
-    <p> quantite fiche : {{ fiche['quantite'] }} </p> 
-    <p> montant de la fiche : {{ fiche['montant'] }} </p> 
-    <p> date de la fiche : {{ fiche['date'] }} </p> 
-    
+    <table>
+  <tr>
+    <th>Etat</th>
+    <th>Libellé</th>
+    <th>Date de modification</th>
+    <th>Quantite</th>
+    <th>Montant total</th>
+    <th>Montant ff</th>
+    <th>Montant fhf</th>
+    <th>Date de création</th>
+  </tr>
+  <tr>
+         <td>{{ fiche['id'] }}</td>
+         <td>{{ fiche['libelle'] }}</td>
+         <td>{{ fiche['dateModif'] }}</td>
+         <td>{{ fiche['quantite'] }}</td>
+         <td>{{ total }}</td>
+         <td>{{ totalff }}</td>
+         <td>{{ fiche['montant'] }}</td>
+         <td>{{ fiche['date'] }}</td>      
+  </tr>       
+         
+    </table>
+
+    </br>
+    <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
     
 </div>
 	 
