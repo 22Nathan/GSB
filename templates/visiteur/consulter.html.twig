@@ -13,13 +13,10 @@
 <div class="example-wrapper">
     
 <div>
-        This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/GSB/src/Controller/VisiteurController.php'|file_link(0) }}">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/GSB/templates/visiteur/consulter.html.twig'|file_link(0) }}">templates/visiteur/consulter.html.twig</a></code></li>
-    </ul>
+
+    <h1>Consulter</h1>
     
-    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p style="color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
     {{ form(formulaire) }}
     </br>
 
@@ -27,30 +24,52 @@
     
     <table>
   <tr>
-    <th>Etat</th>
     <th>Libellé</th>
-    <th>Date de modification</th>
-    <th>Quantite</th>
     <th>Montant total</th>
     <th>Montant ff</th>
     <th>Montant fhf</th>
     <th>Date de création</th>
+    <th>Date de modification</th>
+    <th>Etat</th>
   </tr>
   <tr>
-         <td>{{ fiche['id'] }}</td>
          <td>{{ fiche['libelle'] }}</td>
-         <td>{{ fiche['dateModif'] }}</td>
-         <td>{{ fiche['quantite'] }}</td>
          <td>{{ total }}</td>
          <td>{{ totalff }}</td>
          <td>{{ fiche['montant'] }}</td>
-         <td>{{ fiche['date'] }}</td>      
-  </tr>       
-         
+         <td>{{ fiche['date'] }}</td> 
+         <td>{{ fiche['dateModif'] }}</td>
+         <td>{{ fiche['id'] }}</td>
+  </tr> 
+  <tr>
+    <th></th>
+    <th>Quantite forfait étape </th>
+    <th>Quantite frais kilométrique</th>
+    <th>Quantite nuité d'hotel</th>
+    <th>Quantite repas restaurant</th>
+    <th>Quantite d'éléments hors forfait</th>
+  </tr>  
+  <tr>
+      <td></td>
+      <td>{{ quant[0]['quantite'] }}</td>
+      <td>{{ quant[1]['quantite'] }}</td>
+      <td>{{ quant[2]['quantite'] }}</td>
+      <td>{{ quant[3]['quantite'] }}</td>
+      <td>{{ res2['aaa'] }}</td>
+  </tr> 
+  <tr>
+      <td><strong>Montant par frais</strong></td>
+      <td>{{ aze[0] }}<br/>( {{ quant[0]['quantite'] }} * 110 )</td>
+      <td>{{ aze[1] }}<br/>( {{ quant[1]['quantite'] }} * 0.62 )</td>
+      <td>{{ aze[2] }}<br/>( {{ quant[2]['quantite'] }} * 80 )</td>
+      <td>{{ aze[3] }}<br/>( {{ quant[3]['quantite'] }} * 25 )</td>
+  </tr>    
     </table>
 
     </br>
     <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
+    <br/>
+    <a id="btn_delete" href="{{ path( 'visiteur/saisirMois' ) }}">Retour à la selection du mois</a>
     
 </div>
 	 

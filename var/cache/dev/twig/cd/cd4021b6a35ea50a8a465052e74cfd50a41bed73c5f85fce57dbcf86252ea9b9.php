@@ -77,30 +77,19 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
 
 <div class=\"example-wrapper\">
    
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"";
-        // line 16
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/src/Controller/VisiteurController.php", 0), "html", null, true);
-        echo "\">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href=\"";
-        // line 17
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/visiteur/index.html.twig", 0), "html", null, true);
-        echo "\">templates/visiteur/index.html.twig</a></code></li>
-    </ul>
+    <h1>Connexion</h1>
     
     ";
-        // line 20
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 20, $this->source); })()), 'form');
+        // line 15
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 15, $this->source); })()), 'form');
         echo "
     
     </br>
     
-    ";
-        // line 24
-        echo twig_escape_filter($this->env, (isset($context["connection"]) || array_key_exists("connection", $context) ? $context["connection"] : (function () { throw new RuntimeError('Variable "connection" does not exist.', 24, $this->source); })()), "html", null, true);
-        echo "
+    <p style=\"color: red\">";
+        // line 19
+        echo twig_escape_filter($this->env, (isset($context["connection"]) || array_key_exists("connection", $context) ? $context["connection"] : (function () { throw new RuntimeError('Variable "connection" does not exist.', 19, $this->source); })()), "html", null, true);
+        echo "</p>
     
 </div>
 ";
@@ -121,7 +110,7 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
 
     public function getDebugInfo()
     {
-        return array (  102 => 24,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  91 => 19,  84 => 15,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -138,18 +127,13 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
 
 <div class=\"example-wrapper\">
    
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/VisiteurController.php'|file_link(0) }}\">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}\">templates/visiteur/index.html.twig</a></code></li>
-    </ul>
+    <h1>Connexion</h1>
     
     {{ form(formulaire) }}
     
     </br>
     
-    {{ connection }}
+    <p style=\"color: red\">{{ connection }}</p>
     
 </div>
 {% endblock %}

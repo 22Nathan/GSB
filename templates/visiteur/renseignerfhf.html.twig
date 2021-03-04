@@ -11,10 +11,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello !!! ✅</h1>
+    <!--<h1>Hello !!! ✅</h1>-->
+    <h1>Renseigner un frais hors forfait</h1>
 
-    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    <p> Reinseigner des frais hors forfait pour le mois courrant : {{ todaymy }} </p>
+    <p style=" color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p> Renseigner des frais hors forfait pour le mois courrant : {{ todaymy }} </p>
 
 
     <table>
@@ -35,7 +36,7 @@
          {% set idff = tab[i]['id'] %}
          {#<td><a href="{{ path( 'visiteur/renseigner/fhf/confirmation' ) }}">Supprimer</a></td>#}
          <td><a id="btn_delete" href="{{ path( 'visiteur/renseigner/fhf/confirmation', { 'idff': idff } ) }}" 
-                onclick="return confirm('Etes-vous sûr de vouloir supprimer : ')">Supprimer</a></td>
+                onclick="return confirm('Etes-vous sûr de vouloir le supprimer ? ')">Supprimer</a></td>
           </tr>
           {% endif %}
       {% endfor %}    
@@ -43,10 +44,29 @@
   {#{% endfor %}#}
     </table>
     
-    <p> Element hors forfait : </p>
+    <p> Nouvel élement hors forfait : </p>
     {{ form(formulaire) }}
+    
+    {#
+    {% if errorDate1 is defined %}
+        {{ errorDate1 }}
+    {% endif %}
+    {% if errorDate2 is defined %}
+        {{ errorDate2 }}
+    {% endif %}
+    {% if errorMontant is defined %}
+        {{ errorMontant }}
+    {% endif %}
+    #}
+    
+    {% if errorMontant is defined %}
+        <p style="color: red">{{ errorMontant }}</p>
+    {% endif %}
+    
     <br/>
     <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
+    <br/>
+    <a id="btn_delete" href="{{ path( 'visiteur/renseigner' ) }}">Retour à renseigner</a>
 
 </div>
 {% endblock %}

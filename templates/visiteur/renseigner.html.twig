@@ -9,10 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello !!! ✅</h1>
+    <!--<h1>Hello !!! ✅</h1>-->
+    <h1>Renseigner</h1>
 
-    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    <p> Reinseigner mes frais pour le mois : {{ todaymy }}</p>
+    <p style=" color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p> Renseigner mes frais pour le mois courrant : {{ todaymy }}</p>
     </br>
     
     <a href="{{ path( 'visiteur/renseigner/ff' ) }}">Renseigner frais forfait</a>

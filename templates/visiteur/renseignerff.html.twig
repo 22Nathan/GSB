@@ -9,19 +9,22 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello !!! ✅</h1>
+    <!--<h1>Hello !!! ✅</h1>-->
+    <h1>Renseigner un frais forfait</h1>
 
-    <p> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    <p> Reinseigner mes frais pour le mois : {{ todaymy }}</p>
+    <p style="color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p> Renseigner mes frais pour le mois : {{ todaymy }}</p>
     
-    <p> Element forfaitisé </p>
+    <p> Ajout d'élement(s) forfaitisé(s) </p>
     {{ form(formulaire) }}
-    
-    <p> Total : {{ total }} euro(s) </br>
-        Elements forfaitisés saisis pour le mois courrant : </br> - {{ totalF[1] }} 
+    <br/>
+        Total des élements forfaitisés saisis pour le mois courrant : 
+                                      </br> - {{ totalF[1] }} 
                                       </br> - {{ totalF[2] }}
                                       </br> - {{ totalF[3] }}
-                                      </br> - {{ totalF[4] }}</p>
+                                      </br> - {{ totalF[4] }}
+                                      <br/>
+        Total des éléments forfaitisés : {{ total }} euro(s)   <br/>
     
     <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
 
