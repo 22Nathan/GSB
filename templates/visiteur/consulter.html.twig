@@ -22,25 +22,31 @@
 
     {% set total = totalff + fiche['montant'] %}
     
+    <p>Fiche de frais pour le mois selectionné : {{ b1date }}</p>
+    
     <table>
   <tr>
-    <th>Libellé</th>
+    <!--<th></th>-->
     <th>Montant total</th>
     <th>Montant ff</th>
     <th>Montant fhf</th>
     <th>Date de création</th>
-    <th>Date de modification</th>
+    <th>Dernière date de modification</th>
     <th>Etat</th>
   </tr>
   <tr>
-         <td>{{ fiche['libelle'] }}</td>
-         <td>{{ total }}</td>
+         <!--<td>{{ fiche['libelle'] }}</td>-->
+         <!--<td></td>-->
+         <td style="color: red">{{ total }}</td>
          <td>{{ totalff }}</td>
          <td>{{ fiche['montant'] }}</td>
-         <td>{{ fiche['date'] }}</td> 
+         <td>{{ b1date }}</td> 
          <td>{{ fiche['dateModif'] }}</td>
          <td>{{ fiche['id'] }}</td>
   </tr> 
+    </table>
+        <br/>
+    <table>
   <tr>
     <th></th>
     <th>Quantite forfait étape </th>
@@ -55,7 +61,7 @@
       <td>{{ quant[1]['quantite'] }}</td>
       <td>{{ quant[2]['quantite'] }}</td>
       <td>{{ quant[3]['quantite'] }}</td>
-      <td>{{ res2['aaa'] }}</td>
+      <td>{{ res2['compteur'] }}</td>
   </tr> 
   <tr>
       <td><strong>Montant par frais</strong></td>

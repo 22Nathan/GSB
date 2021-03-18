@@ -92,7 +92,7 @@ class VisiteurController extends AbstractController
         $ficheFrais = $session->get( 'fiche' ) ;
         $prenom = $session->get( 'prenom' ) ;
         $nom = $session->get( 'nom' ) ;
-        $totalff = $session->get( 'totalff' ) ;
+        //$totalff = $session->get( 'totalff' ) ;
         $moisSaisi = $session->get( 'moissaisi' ) ;
         $anneeSaisi = $session->get( 'anneesaisi') ;
         
@@ -105,8 +105,10 @@ class VisiteurController extends AbstractController
         $aaa = sprintf("%02d%04d",$todayMonth,$todayYear) ;
         
         $moisEtannee = $moisSaisi.$anneeSaisi ;
+        $b1date = sprintf("%02d %04d",$moisSaisi,$anneeSaisi);
         
-        if ( $totalff == null ) { $totalff = 0 ; }
+        
+        //if ( $totalff == null ) { $totalff = 0 ; }
         
         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
                                 
@@ -144,9 +146,9 @@ class VisiteurController extends AbstractController
             $res = $sqlw->fetchAll(\PDO::FETCH_ASSOC);
         }
         
-        $sqly = $pdo->prepare("select count(*)as aaa from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois");
+        $sqly = $pdo->prepare("select count(*) as compteur from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois");
         $sqly->bindParam(':id', $idV);
-        $sqly->bindParam(':mois', $moisSaisi);
+        $sqly->bindParam(':mois', $moisEtannee);
         $sqly->execute();
         $res2 = $sqly->fetch(\PDO::FETCH_ASSOC); 
                         
@@ -154,7 +156,10 @@ class VisiteurController extends AbstractController
         $montKM  = 0.62*$res[1]['quantite'];
         $montNUI = 80.00*$res[2]['quantite'];
         $montREP = 25.00*$res[3]['quantite'];
-        $aze = [ 0 => $montETP , 1 => $montKM , 2 => $montNUI , 3 => $montREP , ];                
+        $aze = [ 0 => $montETP , 1 => $montKM , 2 => $montNUI , 3 => $montREP , ];    
+        //
+        $totalff = $montETP + $montKM + $montNUI + $montREP ;
+        if ( $totalff == null or $totalff == 0 ) { $totalff = 0 ; }
         
         $form = $this->createFormBuilder(  )
                         ->add( 'SeDéconnecter' , SubmitType::class )
@@ -177,6 +182,7 @@ class VisiteurController extends AbstractController
             'res2' => $res2 ,
             'aze' => $aze ,
             'formulaire' => $form->createView() ,
+            'b1date' => $b1date ,
             ] );
     }
     
@@ -212,8 +218,30 @@ class VisiteurController extends AbstractController
             $sql2->bindParam(':id', $idV);
             $sql2->bindParam(':mois', $aaa);
             $sql2->execute();
-            $sql3 = $pdo->prepare("insert into LigneFraisForfait");
-            // ICI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            $sql3 = $pdo->prepare("select * from LigneFraisForfait where idVisiteur = :id and mois = :mois"); 
+            $sql3->bindParam(':id', $idV);
+            $sql3->bindParam(':mois', $aaa);
+            $sql3->execute();
+            $count2 = $sql3->rowCount() ;
+            if ( $count2 == 0 ) {
+                $sql4 = $pdo->prepare("insert into LigneFraisForfait(idVisiteur , mois , idFraisForfait , quantite) values ($idV , $aaa , 'ETP' , 0 ");
+                $sql4->bindParam(':id', $idV);
+                $sql4->bindParam(':mois', $aaa);
+                $sql4->execute();
+                $sql4 = $pdo->prepare("insert into LigneFraisForfait(idVisiteur , mois , idFraisForfait , quantite) values ($idV , $aaa , 'KM' , 0 ");
+                $sql4->bindParam(':id', $idV);
+                $sql4->bindParam(':mois', $aaa);
+                $sql4->execute();                
+                $sql4 = $pdo->prepare("insert into LigneFraisForfait(idVisiteur , mois , idFraisForfait , quantite) values ($idV , $aaa , 'NUI' , 0 ");
+                $sql4->bindParam(':id', $idV);
+                $sql4->bindParam(':mois', $aaa);
+                $sql4->execute();                
+                $sql4 = $pdo->prepare("insert into LigneFraisForfait(idVisiteur , mois , idFraisForfait , quantite) values ($idV , $aaa , 'REP' , 0 ");
+                $sql4->bindParam(':id', $idV);
+                $sql4->bindParam(':mois', $aaa);
+                $sql4->execute();                
+            }
         }
         //
         
@@ -652,7 +680,12 @@ class VisiteurController extends AbstractController
                                 $sql2->execute() ;
                                 $sql3->execute() ;
                                 $sql4->execute() ;
-                                
+                                //update dernière date de modif de la fiche
+                                $sqlddm = $pdo->prepare("update FicheFrais set dateModif = :dateM where idVisiteur = :id and mois = :mois");
+                                $sqlddm->bindParam(':dateM', $auj);
+                                $sqlddm->bindParam(':id', $idV);
+                                $sqlddm->bindParam(':mois', $aaa); 
+                                $sqlddm->execute();
                                 //
                                    return $this->redirectToRoute( 'visiteur/renseigner/ff',  [
                                          'formulaire' => $form->createView() ,
@@ -779,13 +812,32 @@ class VisiteurController extends AbstractController
                                 if ( $form->getClickedButton() === $form->get('valider') ) {
 
                                     //si ce n'est pas une date valide -> erreur
-                                    /*
-                                    $dateSelec = date_create($data['dateEngagement']); 
+                                    
+                                    //$dateSelec = date_create($data['dateEngagement']); 
                                     $d = \DateTime::createFromFormat('Y-m-d', $data['dateEngagement']);
-                                    if ( $d !== true )
-                                    { $messErrorDate = "La date d'engagement doit être valide"; }
+                                    if ( $d != true )
+                                    { 
+                                        $messErrorDate = "La date d'engagement doit être valide"; 
+                                        
+                                        return $this->render( 'visiteur/renseignerfhf.html.twig', [ 
+                                            'formulaire' => $form->createView() ,  
+                                            'controller_name' => 'VisiteurController',
+                                            'idVisiteur' => $idV ,
+                                            'data' => $data ,
+                                            'prenomV' => $prenom ,
+                                            'nomV' => $nom ,
+                                            'todaymy' => $todaymy ,
+                                            'tab' => $tab ,
+                                            'nbLigne' => $nbLigneRes , 
+                                            'errorDate1' => $messErrorDate ,
+                                            'errorDate2' => $messErrorDate2 ,
+                                            'errorMontant' => $messErrorMontant ,                                    
+                                        ]); 
+                                        
+                                    }
                                     
                                     //si c'est plus d'un an -> erreur
+                                    /*
                                     $dateUnAnAvant = $todayYear - 1 . $todayMonth . $todayDay ;
                                     $dateUnAnAvant_c = date_create($dateUnAnAvant);  
                                     //$auj2 = date_sub($auj, date_interval_create_from_date_string('1 year'));
@@ -817,6 +869,15 @@ class VisiteurController extends AbstractController
                                         ]);                                        
                                         
                                     }
+                                    
+                                    //
+                                    //update dernière date de modif de la fiche
+                                    $sqlddm = $pdo->prepare("update FicheFrais set dateModif = :dateM where idVisiteur = :id and mois = :mois");
+                                    $sqlddm->bindParam(':dateM', $auj);
+                                    $sqlddm->bindParam(':id', $idV);
+                                    $sqlddm->bindParam(':mois', $aaa); 
+                                    $sqlddm->execute();                                    
+                                    //
                                     
                                     $sql->execute() ;
                                     return $this->redirectToRoute( 'visiteur/renseigner/fhf', [
@@ -961,6 +1022,7 @@ class VisiteurController extends AbstractController
         $idV = $session->get( 'id' ) ;
         $prenom = $session->get( 'prenom' ) ;
         $nom = $session->get( 'nom' ) ;
+
         
         $request = Request::createFromGlobals() ;
         
@@ -969,6 +1031,30 @@ class VisiteurController extends AbstractController
 			->getForm() ;
         
         $form->handleRequest( $request ) ;
+        
+        //cloture des fiches de frais 
+        $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
+        $req = $pdo->prepare("select * from FicheFrais") ;
+        $req->execute() ;
+	$tab = $req->fetchAll(\PDO::FETCH_ASSOC) ;       
+        //print_r($tab);
+        //var_dump(count($tab));
+        
+        /*
+        foreach ($tab as $value) 
+        {
+            date("Y-n-j", strtotime("first day of previous month"));
+            $date = new DateTime($value['dateModif']);
+            if( strlen($date['mon']) != 2 )
+            {
+                $date['mon'] = 0 . $date['mon'] ;
+            }            
+                if( $date['mon']   )
+            {
+                
+            }
+        }*/
+        //fin cloture
         
         if ( $form->isSubmitted() && $form->isValid() ) {
             return $this->redirectToRoute( 'visiteur' , array( 'formulaire' => $form->createView() ) ) ;
@@ -1059,13 +1145,15 @@ class VisiteurController extends AbstractController
                             on f.idVisiteur = l.idVisiteur
                             inner join LigneFraisHorsForfait 
                             on f.idVisiteur = LigneFraisHorsForfait.idVisiteur
-                            where f.mois = :mois and f.idVisiteur = :idVisiteur ;');
+                            where f.mois = :mois and f.idVisiteur = :idVisiteur and LigneFraisHorsForfait.mois = :mois ;');
                         
                         $sql->bindParam(':mois', $aaa);
                         $sql->bindParam(':idVisiteur', $bbb);
                         $sql->execute() ;
                         $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;    
                         
+                        ###
+                        //$b1date = sprintf("%02d %04d",$data['mois'],$data['annee']);
                         ###
                         $session->set('fiche',$b1) ;
                         $session->set('moissaisi' ,$data['mois']) ;
@@ -1081,6 +1169,7 @@ class VisiteurController extends AbstractController
                                  'idVisiteur' => $bbb ,
                                  'prenomV' => $prenom ,
                                  'nomV' => $nom ,
+                                 //'b1date' => $b1date ,
                         ]); 
                         }
 
@@ -1097,6 +1186,8 @@ class VisiteurController extends AbstractController
                         return $this->redirectToRoute( 'visiteur' , array( 'formulaire2' => $form->createView() ) ) ;
                      }
                  }
+                 
+                //$b1date = "?" ;
                                 
 		#return $this->render( 'visiteur/saisirMois.html.twig', array( 'formulaire' => $builder->createView() ) ) ; 
                 return $this->render( 'visiteur/saisirMois.html.twig', [ 'formulaire' => $builder->createView() ,
@@ -1105,6 +1196,7 @@ class VisiteurController extends AbstractController
                                  'prenomV' => $prenom ,
                                  'nomV' => $nom ,
                                  'mess' => $aa ,   
+                                 //'b1date' => $b1date ,
                     ]) ;
     }
     

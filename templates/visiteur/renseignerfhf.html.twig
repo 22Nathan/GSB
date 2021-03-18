@@ -58,7 +58,10 @@
         {{ errorMontant }}
     {% endif %}
     #}
-    
+        
+    {% if errorDate1 is defined %}
+        <p style="color: red">{{ errorDate1 }}</p>
+    {% endif %}
     {% if errorMontant is defined %}
         <p style="color: red">{{ errorMontant }}</p>
     {% endif %}
