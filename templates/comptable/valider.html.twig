@@ -9,12 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    
 
-    This friendly message is coming from:
+    This friendly message is coming from :
     <ul>
         <li>Your controller at <code><a href="{{ '/var/www/html/GSB/src/Controller/ComptableController.php'|file_link(0) }}">src/Controller/ComptableController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/var/www/html/GSB/templates/comptable/index.html.twig'|file_link(0) }}">templates/comptable/index.html.twig</a></code></li>
     </ul>
+    <p>Si fiches par encore créée elles le seront à l'execution</p>
+    
+    {{ form(formulaire) }}
+    
 </div>
 {% endblock %}
