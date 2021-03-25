@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ComptableController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{% block stylesheets %}  
+                <LINK rel="stylesheet" href={{ asset('css/style.css') }}  type="text/css">
+{% endblock %}
+<div id="sideNavigation" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index1.php">Stats globales</a>
+  <a href="stats.php">Stats par magasin </a>
+  <a href="video.php">Vidéos</a>
+  <a href="hist.php">Historique</a>
+</div>
+ 
+<nav class="topnav">
+  <a href="#" onclick="openNav()">
+    <svg width="30" height="30" id="icoOpen">
+        <path d="M0,5 30,5" stroke="#000" stroke-width="5"/>
+        <path d="M0,14 30,14" stroke="#000" stroke-width="5"/>
+        <path d="M0,23 30,23" stroke="#000" stroke-width="5"/>
+    </svg>
+  </a>
+  <center><b>semaine 1 du 02/11 au 08/11<b><center>
+</nav>
+<div class="example-wrapper">
+    <h1>Frais acuellement saisie ✅</h1> 
+    idVisiteur: <strong>{{ fiche['idVisiteur']}}</strong></br> 
+
+    mois: <strong>{{ fiche['mois']}}</strong></br>
+    nbJustificatif: <strong>{{ fiche['nbJustificatifs']}}</strong></br>
+    montant: <strong>{{ fiche['montantValide']}}</strong></br>
+    date de modification: <strong>{{ fiche['dateModif']}}</strong></br>
+    Etat: <strong>{{ fiche['idEtat']}}</strong></br>
+    <br>
+    <br>
+    <br>
+    
+    <h1>Fiche Frais Forfait:</h1> 
+    
+    idVisiteur: <strong>{{ fiche2['idVisiteur']}}</strong></br> 
+    
+
+    Mois: <strong>{{ fiche2['mois']}}</strong></br>
+    idFraisForfait: <strong>{{ fiche2['idFraisForfait']}}</strong></br>
+    Quantite: <strong>{{ fiche2['quantite']}}</strong></br>
+    
+    
+    <h1>Fiche Frais Hors Forfait:</h1> 
+    
+    idVisiteur: <strong>{{ fiche3['idVisiteur']}}</strong></br> 
+    
+
+    Mois: <strong>{{ fiche3['mois']}}</strong></br>
+    Libelle: <strong>{{ fiche3['libelle']}}</strong></br>
+    Date: <strong>{{ fiche3['date']}}</strong></br>
+    Montant: <strong>{{ fiche3['montant']}}</strong></br>
+    
+    <strong> Validez vous cette fiche?</strong>{{ form(formulaire) }}
+</div>
+{% endblock %}
