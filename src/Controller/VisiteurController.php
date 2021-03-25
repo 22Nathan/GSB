@@ -1034,26 +1034,35 @@ class VisiteurController extends AbstractController
         
         //cloture des fiches de frais 
         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
-        $req = $pdo->prepare("select * from FicheFrais") ;
+        $req = $pdo->prepare("select * from FicheFrais where idEtat = 'CR' ") ;
         $req->execute() ;
 	$tab = $req->fetchAll(\PDO::FETCH_ASSOC) ;       
         //print_r($tab);
-        //var_dump(count($tab));
+        //var_dump($tab);
         
-        /*
+        $today = getdate() ;
+        $todayMonth = $today['mon'] ;
+        $todayYear = $today['year'] ;
+        //$todayDay = $today['mday'] ;
+        
+        if( strlen($todayMonth) != 2 ){
+            $todayMonth = 0 . $todayMonth ;
+        }
+        
+        $todayYM00 = $todayYear."-".$todayMonth."-00" ;
+        
         foreach ($tab as $value) 
         {
-            date("Y-n-j", strtotime("first day of previous month"));
-            $date = new DateTime($value['dateModif']);
-            if( strlen($date['mon']) != 2 )
+            $leMois[0] = str_split($value['mois'], 2);
+            //var_dump($leMois[0]);
+            
+            if( intval($todayMonth) > intval($leMois[0]) )
             {
-                $date['mon'] = 0 . $date['mon'] ;
-            }            
-                if( $date['mon']   )
-            {
-                
-            }
-        }*/
+                $req2 = $pdo->prepare( " update FicheFrais set idEtat = 'CL' where idEtat = 'CR' and dateModif < '$todayYM00' " );
+                $req2->execute();
+            }    
+            
+        }
         //fin cloture
         
         if ( $form->isSubmitted() && $form->isValid() ) {
