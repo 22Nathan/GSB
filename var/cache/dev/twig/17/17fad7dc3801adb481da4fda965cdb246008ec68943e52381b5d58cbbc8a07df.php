@@ -76,12 +76,9 @@ class __TwigTemplate_635b4aa4f261cae053e012dbc56039d3928ee867f50f18300f8ea7b0d59
 </style>
 
 <div class=\"example-wrapper\">
-    <h1>Hello ";
-        // line 12
-        echo twig_escape_filter($this->env, (isset($context["controller_name"]) || array_key_exists("controller_name", $context) ? $context["controller_name"] : (function () { throw new RuntimeError('Variable "controller_name" does not exist.', 12, $this->source); })()), "html", null, true);
-        echo "! ✅</h1>
+    
 
-    This friendly message is coming from:
+    This friendly message is coming from :
     <ul>
         <li>Your controller at <code><a href=\"";
         // line 16
@@ -92,6 +89,13 @@ class __TwigTemplate_635b4aa4f261cae053e012dbc56039d3928ee867f50f18300f8ea7b0d59
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/comptable/index.html.twig", 0), "html", null, true);
         echo "\">templates/comptable/index.html.twig</a></code></li>
     </ul>
+    <p>Si fiches par encore créée elles le seront à l'execution</p>
+    
+    ";
+        // line 21
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 21, $this->source); })()), 'form');
+        echo "
+    
 </div>
 ";
         
@@ -111,7 +115,7 @@ class __TwigTemplate_635b4aa4f261cae053e012dbc56039d3928ee867f50f18300f8ea7b0d59
 
     public function getDebugInfo()
     {
-        return array (  92 => 17,  88 => 16,  81 => 12,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  96 => 21,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -127,13 +131,17 @@ class __TwigTemplate_635b4aa4f261cae053e012dbc56039d3928ee867f50f18300f8ea7b0d59
 </style>
 
 <div class=\"example-wrapper\">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    
 
-    This friendly message is coming from:
+    This friendly message is coming from :
     <ul>
         <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/ComptableController.php'|file_link(0) }}\">src/Controller/ComptableController.php</a></code></li>
         <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/comptable/index.html.twig'|file_link(0) }}\">templates/comptable/index.html.twig</a></code></li>
     </ul>
+    <p>Si fiches par encore créée elles le seront à l'execution</p>
+    
+    {{ form(formulaire) }}
+    
 </div>
 {% endblock %}
 ", "comptable/valider.html.twig", "/var/www/html/GSB/templates/comptable/valider.html.twig");

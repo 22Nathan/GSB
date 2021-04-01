@@ -70,7 +70,7 @@ class __TwigTemplate_546b71fd564ad7af95a0e158cb124d06d6e3b6ecf143a9a0c8b8070d323
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo "<style>
+        echo "<style> 
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
@@ -78,22 +78,17 @@ class __TwigTemplate_546b71fd564ad7af95a0e158cb124d06d6e3b6ecf143a9a0c8b8070d323
 <div class=\"example-wrapper\">
     
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"";
-        // line 16
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/src/Controller/ComptableController.php", 0), "html", null, true);
-        echo "\">src/Controller/ComptableController.php</a></code></li>
-        <li>Your template at <code><a href=\"";
-        // line 17
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/comptable/index.html.twig", 0), "html", null, true);
-        echo "\">templates/comptable/index.html.twig</a></code></li>
-    </ul>
+    <h1>Connection Comptable</h1>
     
     ";
-        // line 20
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 20, $this->source); })()), 'form');
+        // line 16
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 16, $this->source); })()), 'form');
         echo "
+    <br/>
+    <p style=\"color:red\">";
+        // line 18
+        echo twig_escape_filter($this->env, (isset($context["messErreur"]) || array_key_exists("messErreur", $context) ? $context["messErreur"] : (function () { throw new RuntimeError('Variable "messErreur" does not exist.', 18, $this->source); })()), "html", null, true);
+        echo "</p>
     
 </div>
 ";
@@ -114,7 +109,7 @@ class __TwigTemplate_546b71fd564ad7af95a0e158cb124d06d6e3b6ecf143a9a0c8b8070d323
 
     public function getDebugInfo()
     {
-        return array (  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  90 => 18,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -124,7 +119,7 @@ class __TwigTemplate_546b71fd564ad7af95a0e158cb124d06d6e3b6ecf143a9a0c8b8070d323
 {% block title %}Hello ComptableController!{% endblock %}
 
 {% block body %}
-<style>
+<style> 
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
@@ -132,13 +127,11 @@ class __TwigTemplate_546b71fd564ad7af95a0e158cb124d06d6e3b6ecf143a9a0c8b8070d323
 <div class=\"example-wrapper\">
     
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/ComptableController.php'|file_link(0) }}\">src/Controller/ComptableController.php</a></code></li>
-        <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/comptable/index.html.twig'|file_link(0) }}\">templates/comptable/index.html.twig</a></code></li>
-    </ul>
+    <h1>Connection Comptable</h1>
     
     {{ form(formulaire) }}
+    <br/>
+    <p style=\"color:red\">{{ messErreur }}</p>
     
 </div>
 {% endblock %}

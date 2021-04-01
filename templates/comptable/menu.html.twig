@@ -11,15 +11,16 @@
 <div class="example-wrapper">
     
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/GSB/src/Controller/VisiteurController.php'|file_link(0) }}">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}">templates/visiteur/index.html.twig</a></code></li>
-    </ul>
+    <h1>Menu</h1>
+ 
+    <p style="color:greenyellow"> Connecté : {{ nomComptable }} {{ prenomComptable }} {{ idComptable }}</p>
     
     <a href="{{ path( 'comptable/suivre' ) }}">Suivre</a>
     <br/>
     <a href="{{ path( 'comptable/valider' ) }}">Valider</a>
+    <br/>
+    <br/>
+    {{ form(formulaire) }}
     
 </div>
 {% endblock %}

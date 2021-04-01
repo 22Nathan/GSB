@@ -20,7 +20,8 @@
     {{ form(formulaire) }}
     </br>
 
-    {% set total = totalff + fiche['montant'] %}
+    {#{% set total = totalff + fiche['montant'] %}#}
+    {% set total = totalff + totfhf['montant'] %}
     
     <p>Fiche de frais pour le mois selectionné : {{ b1date }}</p>
     
@@ -39,8 +40,9 @@
          <!--<td></td>-->
          <td style="color: red">{{ total }}</td>
          <td>{{ totalff }}</td>
-         <td>{{ fiche['montant'] }}</td>
-         <td>{{ b1date }}</td> 
+         <!--<td>{{ fiche['montant'] }}</td>-->
+         <td>{{ totfhf['montant'] }}</td>
+         <td>01 {{ b1date }}</td> 
          <td>{{ fiche['dateModif'] }}</td>
          <td>{{ fiche['id'] }}</td>
   </tr> 
@@ -53,7 +55,7 @@
     <th>Quantite frais kilométrique</th>
     <th>Quantite nuité d'hotel</th>
     <th>Quantite repas restaurant</th>
-    <th>Quantite d'éléments hors forfait</th>
+    <th>Quantite d'élément(s) hors forfait</th>
   </tr>  
   <tr>
       <td></td>

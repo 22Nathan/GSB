@@ -21,87 +21,74 @@ class ComptableController extends AbstractController
    
     public function index(Request $test)
     {
-        #
-		$request = Request::createFromGlobals() ;
+        
+        $request = Request::createFromGlobals() ;
 				
-		$form = $this->createFormBuilder(  )
+	$form = $this->createFormBuilder(  )
 			->add( 'identifiant' , TextType::class )
 			->add( 'motDePasse' , PasswordType::class )
 			->add( 'valider' , SubmitType::class )
 			->add( 'annuler' , ResetType::class )
 			->getForm() ;
 			
-		$form->handleRequest( $request ) ;
+	$form->handleRequest( $request ) ;
 		
-		if ( $form->isSubmitted() && $form->isValid() ) {
-			$data = $form->getData() ;
-                        array( 'data' => $data ) ;
-				$pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
+	if ( $form->isSubmitted() && $form->isValid() ) 
+        {
+            $data = $form->getData() ;
+            array( 'data' => $data ) ;
+                        
+            $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
 				
-				$sql1 = $pdo->prepare("select * from Comptable where login = :identifiant") ;
-				$sql1->bindParam(':identifiant', $data['identifiant']);
-				$sql1->execute() ;
-				$b1 = $sql1->fetch(\PDO::FETCH_ASSOC) ;
+            $sql = $pdo->prepare("select * from Comptable where login = :identifiant and mdp = :mdp") ;
+            $sql->bindParam(':identifiant', $data['identifiant']);
+            $sql->bindParam(':mdp'        , $data['motDePasse']);
+            $sql->execute() ;
+            $result = $sql->fetch(\PDO::FETCH_ASSOC) ;				
 				
-				$sql2 = $pdo->prepare("select * from Comptable where mdp = :motDePasse") ;
-				$sql2->bindParam(':motDePasse', $data['motDePasse']);
-				$sql2->execute() ;
-				$b2 = $sql2->fetch(\PDO::FETCH_ASSOC) ;
-				
-				if (  $b2['id']== $data['identifiant'] &&  $b2['mdp']== $data['motDePasse'] ) {
+            if (  $result['login'] == $data['identifiant'] && $result['mdp'] == $data['motDePasse'] ) 
+            {
                                     
-                                    ###
-                                    $session = $test->getSession() ;
-                                    $session->set('id',$b1['id']) ;
-                                    $session->set('prenom',$b1['prenom']) ;
-                                    $session->set('nom',$b1['nom']) ;
-                                    ###
-                                return $this->redirectToRoute( 'comptable/menu', array( 'data' => $data ) ) ;
-                }}		
-		return $this->render( 'comptable/index.html.twig', array( 'formulaire' => $form->createView() ) ) ;
-		#
+                $session = $test->getSession() ;
+                $session->set('idC'      ,$result['id']) ;
+                $session->set('prenomC'  ,$result['prenom']) ;
+                $session->set('nomC'     ,$result['nom']) ;
+ 
+                return $this->redirectToRoute( 'comptable/menu', array( 'data' => $data ) ) ;
+            }
+                                
+        }
+        
+        $messageErreur = null ;
+        if ( $form->getClickedButton() === $form->get('valider') ) 
+        {
+            $messageErreur = "identifiant ou mot de passe invalide" ;
+        } 
+        
+        return $this->render( 'comptable/index.html.twig', 
+                [ 
+                    'formulaire' => $form->createView() ,
+                    'messErreur' => $messageErreur ,
+                ] ) ;
+		
     }
     
     public function valider(Request $test)
     {
 		
-       $request = Request::createFromGlobals() ;  
-       $session = $test->getSession() ;
-//    $form = $this->createFormBuilder($array)
-//            ->add('objet', ChoiceType::class , array('choices' => $arrayObj)))
-//            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
-//                                                $data = $event->getData();
-//                        $form = $event->getForm();
-//                        if($data != null){
-//                        $req = 'SELECT idVisiteur FROM Visiteur';
-//                        $res = $pdo->query($req);
-//                        $types = $res->fetchAll(PDO::FETCH_ASSOC);
-//                        $form->add('type', ChoiceType::class , array('choices' => $types));
-//                    }
-//        })
-       
-                
-//				
-//		$form = $this->createFormBuilder(  )
-//			->add( 'idVisiteur' , TextType::class )
-//			->add( 'm' , PasswordType::class )
-//			->add( 'valider' , SubmitType::class )
-//			->add( 'annuler' , ResetType::class )
-//			->getForm() ;
-//			
-//		$form->handleRequest( $request ) ;
+        $request = Request::createFromGlobals() ;  
+        $session = $test->getSession() ;
 		
-		  $builder = $this->createFormBuilder(  )
-                  
-                  ->add('visiteur', ChoiceType::class, [
-                  'choices'  => [
-                  'a131' => 'a131',
-                  'a17' => 'a17',
-                  'e5' => 'e5',
+	$builder = $this->createFormBuilder(  )
+            ->add('visiteur', ChoiceType::class, [
+                  'choices' => [
+                  'a131'    => 'a131',
+                  'a17'     => 'a17',
+                  'e5'      => 'e5',
                   'f4' => 'f4',
                   'f39'=> 'f39',   
                       ] ])     
-                  ->add('mois', ChoiceType::class, [
+            ->add('mois', ChoiceType::class, [
                   'choices'  => [
                   '01' => '01',
                   '02' => '02',
@@ -116,7 +103,7 @@ class ComptableController extends AbstractController
                   '11' => '11', 
                   '12' => '12',  
                       ] ])
-                  ->add('annee', ChoiceType::class, [
+            ->add('annee', ChoiceType::class, [
                   'choices'  => [
                   '2017' => '2017', 
                   '2018' => '2018',
@@ -163,7 +150,7 @@ class ComptableController extends AbstractController
                         
                         if ( $b1['mois'] == $aaa && $b1['idVisiteur'] == $data['visiteur'] ) {
                         #return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
-                         return $this->redirectToRoute( 'comptable/valider1' , [
+                            return $this->redirectToRoute( 'comptable/valider1' , [
                                  'date' => $data ,
                                  'controller_name' => 'VisiteurController',      
                         ]); 
@@ -179,11 +166,12 @@ class ComptableController extends AbstractController
     }
     
     
-    public function suivre()
+    public function suivre(Request $test)
     {
-		$request = Request::createFromGlobals() ;  
+	$request = Request::createFromGlobals() ;  
         $session = $test->getSession() ;
-	    $builder = $this->createFormBuilder(  )
+        
+	$builder = $this->createFormBuilder(  )
                   
                   ->add('visiteur', ChoiceType::class, [
                   'choices'  => [
@@ -223,7 +211,7 @@ class ComptableController extends AbstractController
                
                 if ( $builder->isSubmitted() && $builder->isValid() ) {
 						
-						$data = $builder->getData() ;
+			$data = $builder->getData() ;
                         $aaa = sprintf("%02d%04d",$data['mois'],$data['annee']) ;
                         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
                         
@@ -271,12 +259,48 @@ class ComptableController extends AbstractController
     }
 		
     
-    public function menu()
+    public function menu( Request $test )
     {
-        return $this->render('comptable/menu.html.twig', [
-            'controller_name' => 'ComptableController',
-        ]);
+        
+        //Session
+        $session = $test->getSession() ;
+        $idC = $session->get( 'idC' ) ;
+        $prenom = $session->get( 'prenomC' ) ;
+        $nom = $session->get( 'nomC' ) ;
+        //fin session
+        
+        if( $session->get('idC') == null )
+        {
+            return $this->redirectToRoute( 'comptable' ) ;
+        }
+        
+        //form de déconnexion ( bouton retour à se connecter )
+        $request = Request::createFromGlobals() ;       
+        $form = $this->createFormBuilder(  )
+                        ->add( 'SeDéconnecter' , SubmitType::class )
+			->getForm() ;
+        
+        $form->handleRequest( $request ) ;  
+        if ( $form->isSubmitted() && $form->isValid() ) 
+        {
+            //vider la session
+                $session->set('idC'      ,null) ;
+                $session->set('prenomC'  ,null) ;
+                $session->set('nomC'     ,null) ;
+            return $this->redirectToRoute( 'comptable' , array( 'formulaire' => $form->createView() ) ) ;
+        }
+        //fin form de déconnexion
+        
+        return $this->render('comptable/menu.html.twig', 
+            [
+                'controller_name' => 'ComptableController',
+                'formulaire' => $form->createView() ,
+                'idComptable'     => $idC ,
+                'nomComptable'    => $nom ,
+                'prenomComptable' => $prenom ,
+            ]);
     }
+    
     public function valider1(Request $request)
     {
         $session = $request->getSession() ;

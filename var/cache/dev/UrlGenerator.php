@@ -17,4 +17,5 @@ return [
     'comptable/menu' => [[], ['_controller' => 'App\\Controller\\ComptableController::menu'], [], [['text', '/comptable/menu/']], [], []],
     'comptable/suivre' => [[], ['_controller' => 'App\\Controller\\ComptableController::suivre'], [], [['text', '/comptable/suivre']], [], []],
     'comptable/valider' => [[], ['_controller' => 'App\\Controller\\ComptableController::valider'], [], [['text', '/comptable/valider']], [], []],
+    'comptable/valider1' => [[], ['_controller' => 'App\\Controller\\ComptableController::valider1'], [], [['text', '/comptable/valider']], [], []],
 ];

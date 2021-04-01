@@ -19,7 +19,10 @@ return [
         '/comptable' => [[['_route' => 'comptable', '_controller' => 'App\\Controller\\ComptableController::index'], null, null, null, false, false, null]],
         '/comptable/menu' => [[['_route' => 'comptable/menu', '_controller' => 'App\\Controller\\ComptableController::menu'], null, null, null, true, false, null]],
         '/comptable/suivre' => [[['_route' => 'comptable/suivre', '_controller' => 'App\\Controller\\ComptableController::suivre'], null, null, null, false, false, null]],
-        '/comptable/valider' => [[['_route' => 'comptable/valider', '_controller' => 'App\\Controller\\ComptableController::valider'], null, null, null, false, false, null]],
+        '/comptable/valider' => [
+            [['_route' => 'comptable/valider', '_controller' => 'App\\Controller\\ComptableController::valider'], null, null, null, false, false, null],
+            [['_route' => 'comptable/valider1', '_controller' => 'App\\Controller\\ComptableController::valider1'], null, null, null, false, false, null],
+        ],
     ],
     [ // $regexpList
         0 => '{^(?'

@@ -11,13 +11,11 @@
 <div class="example-wrapper">
     
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/GSB/src/Controller/ComptableController.php'|file_link(0) }}">src/Controller/ComptableController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/GSB/templates/comptable/index.html.twig'|file_link(0) }}">templates/comptable/index.html.twig</a></code></li>
-    </ul>
+    <h1>Connection Comptable</h1>
     
     {{ form(formulaire) }}
+    <br/>
+    <p style="color:red">{{ messErreur }}</p>
     
 </div>
 {% endblock %}

@@ -69,8 +69,8 @@ class __TwigTemplate_f97ad68548d98351613b043526fbdc88b061669111c95237bb463d0de0c
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 6
-        echo "<style>
+        echo " 
+<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
@@ -78,27 +78,32 @@ class __TwigTemplate_f97ad68548d98351613b043526fbdc88b061669111c95237bb463d0de0c
 <div class=\"example-wrapper\">
     
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"";
+    <h1>Menu</h1>
+ 
+    <p style=\"color:greenyellow\"> Connecté : ";
         // line 16
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/src/Controller/VisiteurController.php", 0), "html", null, true);
-        echo "\">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href=\"";
-        // line 17
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/visiteur/index.html.twig", 0), "html", null, true);
-        echo "\">templates/visiteur/index.html.twig</a></code></li>
-    </ul>
+        echo twig_escape_filter($this->env, (isset($context["nomComptable"]) || array_key_exists("nomComptable", $context) ? $context["nomComptable"] : (function () { throw new RuntimeError('Variable "nomComptable" does not exist.', 16, $this->source); })()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, (isset($context["prenomComptable"]) || array_key_exists("prenomComptable", $context) ? $context["prenomComptable"] : (function () { throw new RuntimeError('Variable "prenomComptable" does not exist.', 16, $this->source); })()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, (isset($context["idComptable"]) || array_key_exists("idComptable", $context) ? $context["idComptable"] : (function () { throw new RuntimeError('Variable "idComptable" does not exist.', 16, $this->source); })()), "html", null, true);
+        echo "</p>
     
     <a href=\"";
-        // line 20
+        // line 18
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("comptable/suivre");
         echo "\">Suivre</a>
     <br/>
     <a href=\"";
-        // line 22
+        // line 20
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("comptable/valider");
         echo "\">Valider</a>
+    <br/>
+    <br/>
+    ";
+        // line 23
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 23, $this->source); })()), 'form');
+        echo "
     
 </div>
 ";
@@ -119,7 +124,7 @@ class __TwigTemplate_f97ad68548d98351613b043526fbdc88b061669111c95237bb463d0de0c
 
     public function getDebugInfo()
     {
-        return array (  100 => 22,  95 => 20,  89 => 17,  85 => 16,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  105 => 23,  99 => 20,  94 => 18,  85 => 16,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -128,7 +133,7 @@ class __TwigTemplate_f97ad68548d98351613b043526fbdc88b061669111c95237bb463d0de0c
 
 {% block title %}Hello VisiteurController!{% endblock %}
 
-{% block body %}
+{% block body %} 
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -137,15 +142,16 @@ class __TwigTemplate_f97ad68548d98351613b043526fbdc88b061669111c95237bb463d0de0c
 <div class=\"example-wrapper\">
     
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/VisiteurController.php'|file_link(0) }}\">src/Controller/VisiteurController.php</a></code></li>
-        <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/visiteur/index.html.twig'|file_link(0) }}\">templates/visiteur/index.html.twig</a></code></li>
-    </ul>
+    <h1>Menu</h1>
+ 
+    <p style=\"color:greenyellow\"> Connecté : {{ nomComptable }} {{ prenomComptable }} {{ idComptable }}</p>
     
     <a href=\"{{ path( 'comptable/suivre' ) }}\">Suivre</a>
     <br/>
     <a href=\"{{ path( 'comptable/valider' ) }}\">Valider</a>
+    <br/>
+    <br/>
+    {{ form(formulaire) }}
     
 </div>
 {% endblock %}

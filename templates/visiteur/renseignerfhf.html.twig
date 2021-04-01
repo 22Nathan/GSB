@@ -24,8 +24,7 @@
     <th>Libellé</th>
     <th>Montant</th>
     <th>  </th>
-  </tr>
-  {#{% for tab in nbLigne %}#}
+  </tr>   
     
       {% for i in 0..nbLigne %}
           {% if tab is not empty %}
@@ -39,10 +38,20 @@
                 onclick="return confirm('Etes-vous sûr de vouloir le supprimer ? ')">Supprimer</a></td>
           </tr>
           {% endif %}
-      {% endfor %}    
+      {% endfor %}  
+          {% if tab is empty %}
+            <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            </tr>
+          {% endif %}
      
   {#{% endfor %}#}
     </table>
+    {% if tab is empty %}
+        <p style="color:red"> Aucun frais hors forfait ce mois ci. </p>
+    {% endif %}    
     
     <p> Nouvel élement hors forfait : </p>
     {{ form(formulaire) }}

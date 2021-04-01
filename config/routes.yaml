@@ -58,3 +58,7 @@ comptable/suivre:
 comptable/valider:
       path: /comptable/valider
       controller: App\Controller\ComptableController::valider
+      
+comptable/valider1:
+      path: /comptable/valider
+      controller: App\Controller\ComptableController::valider1      

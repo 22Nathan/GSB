@@ -114,7 +114,8 @@ class VisiteurController extends AbstractController
                                 
         $sqlw = $pdo->prepare("select quantite from LigneFraisForfait where idVisiteur = :id and mois = :moisAnnee");
         $sqlw->bindParam(':id', $idV);
-        $sqlw->bindParam(':moisAnnee', $aaa);
+        //$sqlw->bindParam(':moisAnnee', $aaa);
+        $sqlw->bindParam(':moisAnnee', $moisEtannee);
         $sqlw->execute();
         $res = $sqlw->fetchAll(\PDO::FETCH_ASSOC);
         
@@ -146,6 +147,17 @@ class VisiteurController extends AbstractController
             $res = $sqlw->fetchAll(\PDO::FETCH_ASSOC);
         }
         
+        //tot fhf
+        $sqlfhf = $pdo->prepare("select sum(montant) as montant from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois ");
+        $sqlfhf->bindParam(':id', $idV);
+        $sqlfhf->bindParam(':mois', $moisEtannee);
+        $sqlfhf->execute();
+        $resfhf = $sqlfhf->fetch(\PDO::FETCH_ASSOC);
+        if ( $resfhf['montant'] == null )
+        {
+            $resfhf['montant'] = 0 ;
+        }
+        
         $sqly = $pdo->prepare("select count(*) as compteur from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois");
         $sqly->bindParam(':id', $idV);
         $sqly->bindParam(':mois', $moisEtannee);
@@ -174,6 +186,7 @@ class VisiteurController extends AbstractController
         #return $this->render( 'visiteur/consulter.html.twig' , array( 'fiche' => $ficheFrais ) );
         return $this->render( 'visiteur/consulter.html.twig' , [ 
             'fiche' => $ficheFrais ,
+            'totfhf' => $resfhf ,
             'idVisiteur' => $idV ,
             'prenomV' => $prenom ,
             'nomV' => $nom ,
@@ -762,12 +775,12 @@ class VisiteurController extends AbstractController
         $request = Request::createFromGlobals() ;                   
                 
 		$form = $this->createFormBuilder(  )
-                        ->add( 'dateEngagement' , TextType::class , ['data' => $auj] )
-                        ->add( 'libelle' , TextType::class )
-                        ->add( 'montant' , TextType::class )
+                        ->add( 'dateEngagement' , TextType::class , [ 'label' => 'Date d\'engagement ' , 'data' => $auj /*, 'help' => 'yyyy-mm-jj'*/] )
+                        ->add( 'libelle' , TextType::class , ['label' => 'Libelle '])
+                        ->add( 'montant' , TextType::class , ['label' => 'Montant '])
                         //->add( 'montant' , NumberType::class )
-			->add( 'annuler' , SubmitType::class )
-                        ->add( 'valider' , SubmitType::class )
+			->add( 'annuler' , SubmitType::class , ['label' => 'Annuler'] )
+                        ->add( 'valider' , SubmitType::class , ['label' => 'Valider'])
 			->getForm() ;
                 
                 
@@ -787,14 +800,15 @@ class VisiteurController extends AbstractController
                                 $sql->bindParam(':date', $data['dateEngagement']);
                                 $sql->bindParam(':montant', $data['montant']);
                                 
-                                $sql2 = $pdo->prepare("select * from LigneFraisHorsForfait where idVisiteur = :id") ;
+                                $sql2 = $pdo->prepare("select * from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois") ;
                                 $sql2->bindParam(':id', $idV);
+                                $sql2->bindParam(':mois', $aaa);
                                 $sql2->execute() ;
 				$tab = $sql2->fetchAll(\PDO::FETCH_ASSOC) ;
                                 
                                 //$sql3 = "select * from LigneFraisHorsForfait where idVisiteur = :id";
                                 
-                                $res = $pdo->query("select count(*) from LigneFraisHorsForfait where idVisiteur = '$idV'");
+                                $res = $pdo->query("select count(*) from LigneFraisHorsForfait where idVisiteur = '$idV' and mois = '$aaa'");
                                 $nbLigneRes = $res->fetchColumn();
                                 $nbLigneRes = $nbLigneRes - 1 ;
                                 
@@ -1154,7 +1168,9 @@ class VisiteurController extends AbstractController
                             on f.idVisiteur = l.idVisiteur
                             inner join LigneFraisHorsForfait 
                             on f.idVisiteur = LigneFraisHorsForfait.idVisiteur
-                            where f.mois = :mois and f.idVisiteur = :idVisiteur and LigneFraisHorsForfait.mois = :mois ;');
+                            where f.mois = :mois and f.idVisiteur = :idVisiteur and l.mois = :mois ;');
+                        
+                        //where f.mois = :mois and f.idVisiteur = :idVisiteur and LigneFraisHorsForfait.mois = :mois ;');
                         
                         $sql->bindParam(':mois', $aaa);
                         $sql->bindParam(':idVisiteur', $bbb);
