@@ -58,10 +58,10 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
         ";
         // line 11
         $this->displayBlock('body', $context, $blocks);
-        // line 12
+        // line 14
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 13
+        // line 15
         echo "    </body>
 </html>
 ";
@@ -105,12 +105,15 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
+        // line 12
+        echo "             
+        ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
     }
 
-    // line 12
+    // line 14
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -129,7 +132,7 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
 
     public function getDebugInfo()
     {
-        return array (  114 => 12,  102 => 11,  94 => 7,  87 => 6,  74 => 5,  65 => 13,  62 => 12,  60 => 11,  56 => 9,  54 => 6,  50 => 5,  44 => 1,);
+        return array (  117 => 14,  109 => 12,  102 => 11,  94 => 7,  87 => 6,  74 => 5,  65 => 15,  62 => 14,  60 => 11,  56 => 9,  54 => 6,  50 => 5,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -144,7 +147,9 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+             
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

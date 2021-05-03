@@ -14,7 +14,7 @@
     
 <div>
 
-    <h1>Consulter</h1>
+    <h1>Consultation des frais</h1>
     
     <p style="color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
     {{ form(formulaire) }}
@@ -51,26 +51,26 @@
     <table>
   <tr>
     <th></th>
-    <th>Quantite forfait étape </th>
-    <th>Quantite frais kilométrique</th>
-    <th>Quantite nuité d'hotel</th>
-    <th>Quantite repas restaurant</th>
-    <th>Quantite d'élément(s) hors forfait</th>
+    <th>Forfait étape </th>
+    <th>Frais kilométrique</th>
+    <th>Nuité d'hotel</th>
+    <th>Repas restaurant</th>
+    <th>Élément(s) hors forfait</th>
   </tr>  
   <tr>
-      <td></td>
-      <td>{{ quant[0]['quantite'] }}</td>
-      <td>{{ quant[1]['quantite'] }}</td>
-      <td>{{ quant[2]['quantite'] }}</td>
-      <td>{{ quant[3]['quantite'] }}</td>
-      <td>{{ res2['compteur'] }}</td>
+      <td><strong>Quantité</td>
+      <td><tt style="color:blue">{{ quant[0]['quantite'] }}</tt></td>
+      <td><tt style="color:blue">{{ quant[1]['quantite'] }}</tt></td>
+      <td><tt style="color:blue">{{ quant[2]['quantite'] }}</tt></td>
+      <td><tt style="color:blue">{{ quant[3]['quantite'] }}</tt></td>
+      <td><tt style="color:blue">{{ res2['compteur'] }}</tt></td>
   </tr> 
   <tr>
       <td><strong>Montant par frais</strong></td>
-      <td>{{ aze[0] }}<br/>( {{ quant[0]['quantite'] }} * 110 )</td>
-      <td>{{ aze[1] }}<br/>( {{ quant[1]['quantite'] }} * 0.62 )</td>
-      <td>{{ aze[2] }}<br/>( {{ quant[2]['quantite'] }} * 80 )</td>
-      <td>{{ aze[3] }}<br/>( {{ quant[3]['quantite'] }} * 25 )</td>
+      <td>{{ aze[0] }}<br/>( <tt style="color:blue">{{ quant[0]['quantite'] }}</tt> * 110 )</td>
+      <td>{{ aze[1] }}<br/>( <tt style="color:blue">{{ quant[1]['quantite'] }}</tt> * 0.62 )</td>
+      <td>{{ aze[2] }}<br/>( <tt style="color:blue">{{ quant[2]['quantite'] }}</tt> * 80 )</td>
+      <td>{{ aze[3] }}<br/>( <tt style="color:blue">{{ quant[3]['quantite'] }}</tt> * 25 )</td>
   </tr>    
     </table>
 

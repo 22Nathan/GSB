@@ -31,8 +31,8 @@ class VisiteurController extends AbstractController
                 
 				
 		$form = $this->createFormBuilder(  )
-			->add( 'identifiant' , TextType::class )
-			->add( 'motDePasse' , PasswordType::class )
+			->add( 'identifiant' , TextType::class , [ 'label' => 'Identifiant ' ] )
+			->add( 'motDePasse' , PasswordType::class , [ 'label' => 'Mot de passe ' ] )
 			->add( 'valider' , SubmitType::class )
 			->add( 'annuler' , ResetType::class )
 			->getForm() ;
@@ -87,6 +87,7 @@ class VisiteurController extends AbstractController
     public function consulter( Request $request )
     {
             
+        #Session
         $session = $request->getSession() ;
         $idV = $session->get( 'id' ) ;
         $ficheFrais = $session->get( 'fiche' ) ;
@@ -96,13 +97,14 @@ class VisiteurController extends AbstractController
         $moisSaisi = $session->get( 'moissaisi' ) ;
         $anneeSaisi = $session->get( 'anneesaisi') ;
         
+        #Date
         $today = getdate() ;
         $todayMonth = $today['mon'] ;
         $todayYear = $today['year'] ;
         if( strlen($todayMonth) != 2 ){
             $todayMonth = 0 . $todayMonth ;
         }
-        $aaa = sprintf("%02d%04d",$todayMonth,$todayYear) ;
+        $concatMoisAnnee = sprintf("%02d%04d",$todayMonth,$todayYear) ;
         
         $moisEtannee = $moisSaisi.$anneeSaisi ;
         $b1date = sprintf("%02d %04d",$moisSaisi,$anneeSaisi);
@@ -111,43 +113,44 @@ class VisiteurController extends AbstractController
         //if ( $totalff == null ) { $totalff = 0 ; }
         
         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
-                                
+                  
+        #Requête selection des quantités pour la date choisi
         $sqlw = $pdo->prepare("select quantite from LigneFraisForfait where idVisiteur = :id and mois = :moisAnnee");
         $sqlw->bindParam(':id', $idV);
-        //$sqlw->bindParam(':moisAnnee', $aaa);
+        //$sqlw->bindParam(':moisAnnee', $concatMoisAnnee);
         $sqlw->bindParam(':moisAnnee', $moisEtannee);
         $sqlw->execute();
         $res = $sqlw->fetchAll(\PDO::FETCH_ASSOC);
         
-        //si pas de sésultat de sqlw insérer des quantité null
+        #si pas de sésultat de sqlw insérer des quantité null / 0
         if ( $res == null or empty($res) == true ) 
         {
             $sql_insert_etp_null = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :idv , :mois , 'ETP' , 0 )");
             $sql_insert_etp_null->bindParam(':idv', $idV);
-            $sql_insert_etp_null->bindParam(':mois', $aaa);
+            $sql_insert_etp_null->bindParam(':mois', $concatMoisAnnee);
             $sql_insert_etp_null->execute();
             
             $sql_insert_km_null = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :idv , :mois , 'KM' , 0 )");
             $sql_insert_km_null->bindParam(':idv', $idV);
-            $sql_insert_km_null->bindParam(':mois', $aaa);
+            $sql_insert_km_null->bindParam(':mois', $concatMoisAnnee);
             $sql_insert_km_null->execute();
             
             $sql_insert_nui_null = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :idv , :mois , 'NUI' , 0 )");
             $sql_insert_nui_null->bindParam(':idv', $idV);
-            $sql_insert_nui_null->bindParam(':mois', $aaa);
+            $sql_insert_nui_null->bindParam(':mois', $concatMoisAnnee);
             $sql_insert_nui_null->execute();
             
             $sql_insert_rep_null = $pdo->prepare("insert into LigneFraisForfait ( idVisiteur , mois , idFraisForfait , quantite ) values ( :idv , :mois , 'REP' , 0 )");
             $sql_insert_rep_null->bindParam(':idv', $idV);
-            $sql_insert_rep_null->bindParam(':mois', $aaa);
+            $sql_insert_rep_null->bindParam(':mois', $concatMoisAnnee);
             $sql_insert_rep_null->execute();
             
-            //réexecuter sqlw
+            #réexecuter sqlw
             $sqlw->execute();
             $res = $sqlw->fetchAll(\PDO::FETCH_ASSOC);
         }
         
-        //tot fhf
+        #total fhf
         $sqlfhf = $pdo->prepare("select sum(montant) as montant from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois ");
         $sqlfhf->bindParam(':id', $idV);
         $sqlfhf->bindParam(':mois', $moisEtannee);
@@ -158,21 +161,30 @@ class VisiteurController extends AbstractController
             $resfhf['montant'] = 0 ;
         }
         
+        #nombre d'éléments hors forfait
         $sqly = $pdo->prepare("select count(*) as compteur from LigneFraisHorsForfait where idVisiteur = :id and mois = :mois");
         $sqly->bindParam(':id', $idV);
         $sqly->bindParam(':mois', $moisEtannee);
         $sqly->execute();
         $res2 = $sqly->fetch(\PDO::FETCH_ASSOC); 
                         
-        $montETP = 110.00*$res[0]['quantite'];
-        $montKM  = 0.62*$res[1]['quantite'];
-        $montNUI = 80.00*$res[2]['quantite'];
-        $montREP = 25.00*$res[3]['quantite'];
-        $aze = [ 0 => $montETP , 1 => $montKM , 2 => $montNUI , 3 => $montREP , ];    
-        //
+        #total par frais forfait
+        $montETP = 110.00 * $res[0]['quantite'];
+        $montKM  = 0.62 * $res[1]['quantite'];
+        $montNUI = 80.00 * $res[2]['quantite'];
+        $montREP = 25.00 * $res[3]['quantite'];
+        $aze = [ 
+            0 => $montETP ,
+            1 => $montKM ,
+            2 => $montNUI ,
+            3 => $montREP ,
+            ];    
+        
+        #total ff
         $totalff = $montETP + $montKM + $montNUI + $montREP ;
         if ( $totalff == null or $totalff == 0 ) { $totalff = 0 ; }
         
+        #form déconnexion
         $form = $this->createFormBuilder(  )
                         ->add( 'SeDéconnecter' , SubmitType::class )
 			->getForm() ;
@@ -180,10 +192,12 @@ class VisiteurController extends AbstractController
                 $form->handleRequest( $request ) ;
         
                  if ( $form->isSubmitted() && $form->isValid() ) {
-                      return $this->redirectToRoute( 'visiteur' , array( 'formulaire' => $form->createView() ) ) ;
+                    $session->clear();
+                    return $this->redirectToRoute( 'visiteur' , array( 'formulaire' => $form->createView() ) ) ;
                  }
-        
-        #return $this->render( 'visiteur/consulter.html.twig' , array( 'fiche' => $ficheFrais ) );
+        #fin form déconnexion
+                 
+        //return $this->render( 'visiteur/consulter.html.twig' , array( 'fiche' => $ficheFrais ) );
         return $this->render( 'visiteur/consulter.html.twig' , [ 
             'fiche' => $ficheFrais ,
             'totfhf' => $resfhf ,
@@ -1096,12 +1110,15 @@ class VisiteurController extends AbstractController
     
     public function saisirMois( Request $test )
     {
-        
+                
+                #Session
                 $session = $test->getSession() ;
                 $idV = $session->get( 'id' ) ;
                 $prenom = $session->get( 'prenom' ) ;
                 $nom = $session->get( 'nom' ) ;
-                $aa = '' ;
+                
+                #Message d'erreur
+                $messErreur = '' ;
                 
                 #Date
                 $today = getdate() ;
@@ -1111,50 +1128,58 @@ class VisiteurController extends AbstractController
                      $todayMonth = 0 . $todayMonth ;
                 }
                 
-                #Calcul pour la liste déroulante
+                #Calcul des années pour la liste déroulante
                 $todayYear2 = $todayYear - 1 ;
                 $todayYear3 = $todayYear - 2 ;
                 
+                #Début formulaire
 		$request = Request::createFromGlobals() ;
                 
                 $builder = $this->createFormBuilder(  )
                   ->add('mois', ChoiceType::class, [
-                  'choices'  => [
-                  $todayMonth => $todayMonth,
-                  '01' => '01',    
-                  '02' => '02',
-                  '03' => '03',
-                  '04' => '04',
-                  '05' => '05',
-                  '06' => '06',
-                  '07' => '07',
-                  '08' => '08',
-                  '09' => '09',
-                  '10' => '10',
-                  '11' => '11', 
-                  '12' => '12',    
-                      ] ])
+                    'choices'  => [
+                    $todayMonth => $todayMonth,
+                    '01' => '01',    
+                    '02' => '02',
+                    '03' => '03',
+                    '04' => '04',
+                    '05' => '05',
+                    '06' => '06',
+                    '07' => '07',
+                    '08' => '08',
+                    '09' => '09',
+                    '10' => '10',
+                    '11' => '11', 
+                    '12' => '12',    
+                      ] 
+                      , 'label' => 'Mois '
+                      ,
+                      ])
                   ->add('annee', ChoiceType::class, [
-                  'choices'  => [
-                  $todayYear => $todayYear,
-                  $todayYear2 => $todayYear2,
-                  $todayYear3 => $todayYear3,
-                      ] ])      
-                ->add( 'valider' , SubmitType::class )
-		->add( 'annuler' , ResetType::class )
-		->getForm() ;    
+                    'choices'  => [
+                    $todayYear => $todayYear,
+                    $todayYear2 => $todayYear2,
+                    $todayYear3 => $todayYear3,
+                      ] 
+                      , 'label' => 'Année '
+                      , 
+                      ])      
+                  ->add( 'valider' , SubmitType::class )
+		  ->add( 'annuler' , ResetType::class )
+		  ->getForm() ;    
                     
                 $builder->handleRequest( $request ) ;
                 
+                #Traitement formulaire
                 if ( $builder->isSubmitted() && $builder->isValid() ) {
 			$data = $builder->getData() ;
                         
                         ###
-                        $bbb = $session->get( 'id' ) ;
+                        #$bbb = $session->get( 'id' ) ;
                         ###
                         
-                        $aa = " Aucune fiche pour cette date ";
-                        $aaa = sprintf("%02d%04d",$data['mois'],$data['annee']) ;
+                        $messErreur = " Aucune fiche pour cette date ";
+                        $moisAnnee = sprintf("%02d%04d",$data['mois'],$data['annee']) ;
                         
                         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
                         
@@ -1169,59 +1194,52 @@ class VisiteurController extends AbstractController
                             inner join LigneFraisHorsForfait 
                             on f.idVisiteur = LigneFraisHorsForfait.idVisiteur
                             where f.mois = :mois and f.idVisiteur = :idVisiteur and l.mois = :mois ;');
+                            //where f.mois = :mois and f.idVisiteur = :idVisiteur and LigneFraisHorsForfait.mois = :mois ;');
                         
-                        //where f.mois = :mois and f.idVisiteur = :idVisiteur and LigneFraisHorsForfait.mois = :mois ;');
-                        
-                        $sql->bindParam(':mois', $aaa);
-                        $sql->bindParam(':idVisiteur', $bbb);
+                        $sql->bindParam(':mois', $moisAnnee);
+                        $sql->bindParam(':idVisiteur', $idV);
                         $sql->execute() ;
-                        $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;    
+                        $b1 = $sql->fetch(\PDO::FETCH_ASSOC) ;                           
                         
-                        ###
-                        //$b1date = sprintf("%02d %04d",$data['mois'],$data['annee']);
-                        ###
+                        #Set 
                         $session->set('fiche',$b1) ;
                         $session->set('moissaisi' ,$data['mois']) ;
                         $session->set('anneesaisi' ,$data['annee']) ;
-                        ###
                         
-                        
-                        if ( $b1['mois'] == $aaa ) {
+                        if ( $b1['mois'] == $moisAnnee ) {
                         #return $this->redirectToRoute( 'visiteur/consulter', array( 'data' => $data ) ) ;
                          return $this->redirectToRoute( 'visiteur/consulter' , [
                                  'date' => $data ,
                                  'controller_name' => 'VisiteurController',
-                                 'idVisiteur' => $bbb ,
+                                 'idVisiteur' => $moisAnnee ,
                                  'prenomV' => $prenom ,
                                  'nomV' => $nom ,
-                                 //'b1date' => $b1date ,
                         ]); 
                         }
 
                 }
                 
                 $form = $this->createFormBuilder(  )
-                        ->add( 'SeDéconnecter' , SubmitType::class )
+                        ->add( 'SeDéconnecter' , SubmitType::class, [ 'label' => 'Se déconnecter'])
 			->getForm() ;
         
                 $form->handleRequest( $request ) ;
         
                  if ( $form->isSubmitted() && $form->isValid() ) {
                      if ( $form->getClickedButton() === $form->get('SeDéconnecter') ) {
+                        $session->clear();
                         return $this->redirectToRoute( 'visiteur' , array( 'formulaire2' => $form->createView() ) ) ;
                      }
                  }
-                 
-                //$b1date = "?" ;
                                 
 		#return $this->render( 'visiteur/saisirMois.html.twig', array( 'formulaire' => $builder->createView() ) ) ; 
-                return $this->render( 'visiteur/saisirMois.html.twig', [ 'formulaire' => $builder->createView() ,
+                return $this->render( 'visiteur/saisirMois.html.twig', [ 
+                                 'formulaire' => $builder->createView() ,
                                  'formulaire2' => $form->createView() ,   
                                  'idVisiteur' => $idV ,
                                  'prenomV' => $prenom ,
                                  'nomV' => $nom ,
-                                 'mess' => $aa ,   
-                                 //'b1date' => $b1date ,
+                                 'mess' => $messErreur ,   
                     ]) ;
     }
     
