@@ -187,7 +187,7 @@ class VisiteurController extends AbstractController
         #form déconnexion
         $form = $this->createFormBuilder(  )
                         ->add( 'SeDéconnecter' , SubmitType::class )
-			->getForm() ;
+			            ->getForm() ;
         
                 $form->handleRequest( $request ) ;
         
@@ -293,7 +293,7 @@ class VisiteurController extends AbstractController
             'todaymy' => $todaymy ,
         ]);
     
-  /*      $request = Request::createFromGlobals() ;                   
+        /*      $request = Request::createFromGlobals() ;                   
                 
 		$form = $this->createFormBuilder(  )
 			->add( 'ETP' , TextType::class , ['data' => 0] )
@@ -484,7 +484,7 @@ class VisiteurController extends AbstractController
                         'todaymy' => $todaymy ,
                         ]); 
    
-   */
+        */
     }
                 
     /*------------------------------------------------------------------------------------------------*/
@@ -1064,7 +1064,7 @@ class VisiteurController extends AbstractController
         $pdo = new \PDO('mysql:host=localhost; dbname=gsbFrais', 'developpeur', 'azerty');
         $req = $pdo->prepare("select * from FicheFrais where idEtat = 'CR' ") ;
         $req->execute() ;
-	$tab = $req->fetchAll(\PDO::FETCH_ASSOC) ;       
+	    $tab = $req->fetchAll(\PDO::FETCH_ASSOC) ;       
         //print_r($tab);
         //var_dump($tab);
         
@@ -1161,12 +1161,12 @@ class VisiteurController extends AbstractController
                     $todayYear2 => $todayYear2,
                     $todayYear3 => $todayYear3,
                       ] 
-                      , 'label' => 'Année '
-                      , 
+                      , 'label' => 'Année '                      
+                      ,
                       ])      
                   ->add( 'valider' , SubmitType::class )
-		  ->add( 'annuler' , ResetType::class )
-		  ->getForm() ;    
+		          ->add( 'annuler' , ResetType::class )
+		          ->getForm() ;    
                     
                 $builder->handleRequest( $request ) ;
                 
@@ -1220,8 +1220,11 @@ class VisiteurController extends AbstractController
                 }
                 
                 $form = $this->createFormBuilder(  )
-                        ->add( 'SeDéconnecter' , SubmitType::class, [ 'label' => 'Se déconnecter'])
-			->getForm() ;
+                        ->add( 'SeDéconnecter' , SubmitType::class, [ 
+                            'label' => 'Se déconnecter',
+                            'attr' => ['class' => 'button'],
+                            ])
+			            ->getForm() ;
         
                 $form->handleRequest( $request ) ;
         

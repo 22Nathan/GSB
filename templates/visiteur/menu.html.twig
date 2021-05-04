@@ -6,21 +6,46 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
+
 </style>
 
 <div class="example-wrapper">
     
     <h1>Menu</h1>
     
-    <p style="color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    
-    <a href="{{ path( 'visiteur/saisirMois' ) }}">Consulter</a>
+    <p style=
+    "
+    border-left: 6px solid yellowgreen;
+    background-color: #e6ffe6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: yellowgreen;
+    "
+    > Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+
+    {{ form(formulaire) }}
     <br/>
-    <a href="{{ path( 'visiteur/renseigner' ) }}">Renseigner</a>
+    
+    <span><a href="{{ path( 'visiteur/saisirMois' ) }}" class="btn">Consulter</a></span>
+
+    <span><a href="{{ path( 'visiteur/renseigner' ) }}" class="btn">Renseigner</a></span>
     
     </br><br/>
     
-    {{ form(formulaire) }}
+    
     
 </div>
 {% endblock %}

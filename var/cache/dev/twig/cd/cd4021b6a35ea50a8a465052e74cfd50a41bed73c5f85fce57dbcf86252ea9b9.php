@@ -73,6 +73,19 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
         echo "<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
 </style>
 
 <div class=\"example-wrapper\">
@@ -80,17 +93,30 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
     <h1>Connexion</h1>
     
     ";
-        // line 15
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 15, $this->source); })()), 'form');
+        // line 28
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 28, $this->source); })()), 'form');
         echo "
     
     </br>
     
-    <p style=\"color: red\">";
-        // line 19
-        echo twig_escape_filter($this->env, (isset($context["connection"]) || array_key_exists("connection", $context) ? $context["connection"] : (function () { throw new RuntimeError('Variable "connection" does not exist.', 19, $this->source); })()), "html", null, true);
+    <p style=
+    \"
+    border-left: 6px solid red;
+    background-color: #ffe6e6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: red;
+    \"
+    >";
+        // line 40
+        echo twig_escape_filter($this->env, (isset($context["connection"]) || array_key_exists("connection", $context) ? $context["connection"] : (function () { throw new RuntimeError('Variable "connection" does not exist.', 40, $this->source); })()), "html", null, true);
         echo "</p>
     
+    <a id=\"btn_delete\" href=\"";
+        // line 42
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("accueil");
+        echo "\">Retour à la sélection</a>
+
 </div>
 ";
         
@@ -110,7 +136,7 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
 
     public function getDebugInfo()
     {
-        return array (  91 => 19,  84 => 15,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  117 => 42,  112 => 40,  97 => 28,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -123,6 +149,19 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
 </style>
 
 <div class=\"example-wrapper\">
@@ -133,8 +172,18 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
     
     </br>
     
-    <p style=\"color: red\">{{ connection }}</p>
+    <p style=
+    \"
+    border-left: 6px solid red;
+    background-color: #ffe6e6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: red;
+    \"
+    >{{ connection }}</p>
     
+    <a id=\"btn_delete\" href=\"{{ path( 'accueil' ) }}\">Retour à la sélection</a>
+
 </div>
 {% endblock %}
 ", "visiteur/index.html.twig", "/var/www/html/GSB/templates/visiteur/index.html.twig");

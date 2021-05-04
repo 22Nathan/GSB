@@ -73,37 +73,62 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
         echo "<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
+
 </style>
 
 <div class=\"example-wrapper\">
     
     <h1>Menu</h1>
     
-    <p style=\"color: greenyellow\"> Connecté : ";
-        // line 15
-        echo twig_escape_filter($this->env, (isset($context["prenomV"]) || array_key_exists("prenomV", $context) ? $context["prenomV"] : (function () { throw new RuntimeError('Variable "prenomV" does not exist.', 15, $this->source); })()), "html", null, true);
+    <p style=
+    \"
+    border-left: 6px solid yellowgreen;
+    background-color: #e6ffe6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: yellowgreen;
+    \"
+    > Connecté : ";
+        // line 37
+        echo twig_escape_filter($this->env, (isset($context["prenomV"]) || array_key_exists("prenomV", $context) ? $context["prenomV"] : (function () { throw new RuntimeError('Variable "prenomV" does not exist.', 37, $this->source); })()), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, (isset($context["nomV"]) || array_key_exists("nomV", $context) ? $context["nomV"] : (function () { throw new RuntimeError('Variable "nomV" does not exist.', 15, $this->source); })()), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["nomV"]) || array_key_exists("nomV", $context) ? $context["nomV"] : (function () { throw new RuntimeError('Variable "nomV" does not exist.', 37, $this->source); })()), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, (isset($context["idVisiteur"]) || array_key_exists("idVisiteur", $context) ? $context["idVisiteur"] : (function () { throw new RuntimeError('Variable "idVisiteur" does not exist.', 15, $this->source); })()), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["idVisiteur"]) || array_key_exists("idVisiteur", $context) ? $context["idVisiteur"] : (function () { throw new RuntimeError('Variable "idVisiteur" does not exist.', 37, $this->source); })()), "html", null, true);
         echo "  </p>
-    
-    <a href=\"";
-        // line 17
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/saisirMois");
-        echo "\">Consulter</a>
+
+    ";
+        // line 39
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 39, $this->source); })()), 'form');
+        echo "
     <br/>
-    <a href=\"";
-        // line 19
+    
+    <span><a href=\"";
+        // line 42
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/saisirMois");
+        echo "\" class=\"btn\">Consulter</a></span>
+
+    <span><a href=\"";
+        // line 44
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/renseigner");
-        echo "\">Renseigner</a>
+        echo "\" class=\"btn\">Renseigner</a></span>
     
     </br><br/>
     
-    ";
-        // line 23
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 23, $this->source); })()), 'form');
-        echo "
+    
     
 </div>
 ";
@@ -124,7 +149,7 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
 
     public function getDebugInfo()
     {
-        return array (  105 => 23,  98 => 19,  93 => 17,  84 => 15,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  126 => 44,  121 => 42,  115 => 39,  106 => 37,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -137,21 +162,46 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
+
 </style>
 
 <div class=\"example-wrapper\">
     
     <h1>Menu</h1>
     
-    <p style=\"color: greenyellow\"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
-    
-    <a href=\"{{ path( 'visiteur/saisirMois' ) }}\">Consulter</a>
+    <p style=
+    \"
+    border-left: 6px solid yellowgreen;
+    background-color: #e6ffe6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: yellowgreen;
+    \"
+    > Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+
+    {{ form(formulaire) }}
     <br/>
-    <a href=\"{{ path( 'visiteur/renseigner' ) }}\">Renseigner</a>
+    
+    <span><a href=\"{{ path( 'visiteur/saisirMois' ) }}\" class=\"btn\">Consulter</a></span>
+
+    <span><a href=\"{{ path( 'visiteur/renseigner' ) }}\" class=\"btn\">Renseigner</a></span>
     
     </br><br/>
     
-    {{ form(formulaire) }}
+    
     
 </div>
 {% endblock %}

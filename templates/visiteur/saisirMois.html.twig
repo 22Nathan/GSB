@@ -6,6 +6,20 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited, #ff15 {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active, .ff15 {
+    background-color: red;
+    }
+    
 </style>
 
 <div class="example-wrapper">
@@ -13,7 +27,18 @@
 <div>    
     <h1>Saisir la date</h1>
     
-    <p style="color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p style=
+    "
+    border-left: 6px solid yellowgreen;
+    background-color: #e6ffe6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: yellowgreen;
+    "
+    > Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+
+    {{ form(formulaire2) }}
+    <br/>
     
 </div>
     {% form_theme formulaire 'foundation_5_layout.html.twig' %}
@@ -21,42 +46,22 @@
     {#<div style="line-height:220%">#}
         {{ form(formulaire) }}
     {#</div>#}
+
     <br/>
-    <p style="color: red">{{ mess }}</p>
-    <br/>
-    {{ form(formulaire2) }}
+
+    <p style=
+    "
+    border-left: 6px solid red;
+    background-color: #ffe6e6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: red;
+    "
+    >{{ mess }}</p>
+
     <br/>
     <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>       
     
 </div>
-    
-    
-        {{ form_start(formulaire) }}
-        <div id="form">
-            <div class="row">
-                <div class="large-12 columns">
-                    {{ form_row(formulaire.mois) }}
-                    {{ form_label(formulaire.mois) }}
-                    {{ form_rest(formulaire) }}
-                    {{ form_help(formulaire.mois) }}
-                    <!--<select id="form_mois" name="form[mois]" style="policy-size: 200%;">
-                        <option value="05" selected="selected">05</option>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>-->
-                </div>
-            </div> 
-        </div>            
-        {{ form_end(formulaire) }}
-    
     
 {% endblock %}

@@ -58,10 +58,10 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
         ";
         // line 11
         $this->displayBlock('body', $context, $blocks);
-        // line 14
+        // line 17
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 15
+        // line 18
         echo "    </body>
 </html>
 ";
@@ -106,14 +106,20 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 12
-        echo "             
+        echo "
+        <img src=\"/images/logoGSB.png\" width=\"auto\" height=\"auto\"> 
+        <img src=\"";
+        // line 14
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/logoGSB.png"), "html", null, true);
+        echo "\" />
+             
         ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
     }
 
-    // line 14
+    // line 17
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -132,7 +138,7 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
 
     public function getDebugInfo()
     {
-        return array (  117 => 14,  109 => 12,  102 => 11,  94 => 7,  87 => 6,  74 => 5,  65 => 15,  62 => 14,  60 => 11,  56 => 9,  54 => 6,  50 => 5,  44 => 1,);
+        return array (  123 => 17,  113 => 14,  109 => 12,  102 => 11,  94 => 7,  87 => 6,  74 => 5,  65 => 18,  62 => 17,  60 => 11,  56 => 9,  54 => 6,  50 => 5,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -148,6 +154,9 @@ class __TwigTemplate_34b1d2ae09df8afacd4363dc0c6d0c471e7492e5b5aa0c22cf595281e3d
     </head>
     <body>
         {% block body %}
+
+        <img src=\"/images/logoGSB.png\" width=\"auto\" height=\"auto\"> 
+        <img src=\"{{ asset('images/logoGSB.png') }}\" />
              
         {% endblock %}
         {% block javascripts %}{% endblock %}

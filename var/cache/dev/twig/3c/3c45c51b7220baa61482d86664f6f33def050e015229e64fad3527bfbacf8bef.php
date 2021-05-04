@@ -73,35 +73,48 @@ class __TwigTemplate_ae5a79c97f33387754d4286b275757d7144ca5aa5d2a5555e5b9c2cf7a0
         echo "<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
+
 </style>
 
 <div class=\"example-wrapper\">
-    <h1>Hello ";
-        // line 12
-        echo twig_escape_filter($this->env, (isset($context["controller_name"]) || array_key_exists("controller_name", $context) ? $context["controller_name"] : (function () { throw new RuntimeError('Variable "controller_name" does not exist.', 12, $this->source); })()), "html", null, true);
-        echo "! ✅</h1>
+    <h1>Hello ! ✅</h1>
 
-    This friendly message is coming from:
+    <!--This friendly message is coming from:-->
     <ul>
+        <!--
         <li>Your controller at <code><a href=\"";
-        // line 16
+        // line 31
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/src/Controller/AccueilController.php", 0), "html", null, true);
         echo "\">src/Controller/AccueilController.php</a></code></li>
         <li>Your template at <code><a href=\"";
-        // line 17
+        // line 32
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/var/www/html/GSB/templates/accueil/index.html.twig", 0), "html", null, true);
         echo "\">templates/accueil/index.html.twig</a></code></li>
-        
+        -->
+
         <br/>
-        <a href=\"";
-        // line 20
+        <span><a href=\"";
+        // line 36
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur");
-        echo "\">Compte Visiteur</a>
-        <br/>
-        <a href=\"";
-        // line 22
+        echo "\">Connexion Visiteur</a></span>
+
+        <span><a href=\"";
+        // line 38
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("comptable");
-        echo "\">Compte Comptable</a>
+        echo "\">Connexion Comptable</a></span>
         
     </ul>
 </div>
@@ -123,7 +136,7 @@ class __TwigTemplate_ae5a79c97f33387754d4286b275757d7144ca5aa5d2a5555e5b9c2cf7a0
 
     public function getDebugInfo()
     {
-        return array (  103 => 22,  98 => 20,  92 => 17,  88 => 16,  81 => 12,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  116 => 38,  111 => 36,  104 => 32,  100 => 31,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -136,20 +149,36 @@ class __TwigTemplate_ae5a79c97f33387754d4286b275757d7144ca5aa5d2a5555e5b9c2cf7a0
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active {
+    background-color: red;
+    }
+
 </style>
 
 <div class=\"example-wrapper\">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello ! ✅</h1>
 
-    This friendly message is coming from:
+    <!--This friendly message is coming from:-->
     <ul>
+        <!--
         <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/AccueilController.php'|file_link(0) }}\">src/Controller/AccueilController.php</a></code></li>
         <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/accueil/index.html.twig'|file_link(0) }}\">templates/accueil/index.html.twig</a></code></li>
-        
+        -->
+
         <br/>
-        <a href=\"{{ path( 'visiteur' ) }}\">Compte Visiteur</a>
-        <br/>
-        <a href=\"{{ path( 'comptable' ) }}\">Compte Comptable</a>
+        <span><a href=\"{{ path( 'visiteur' ) }}\">Connexion Visiteur</a></span>
+
+        <span><a href=\"{{ path( 'comptable' ) }}\">Connexion Comptable</a></span>
         
     </ul>
 </div>
