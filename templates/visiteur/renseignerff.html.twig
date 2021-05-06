@@ -6,18 +6,44 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
+    td, th { border: 1px solid #dddddd; text-align: left; padding: 8px;}
+
+    a:link, a:visited, #ff15 {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active, .ff15 {
+    background-color: red;
+    }
+
 </style>
 
 <div class="example-wrapper">
     <!--<h1>Hello !!! ✅</h1>-->
     <h1>Renseigner un frais forfait</h1>
 
-    <p style="color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p style=
+    "
+    border-left: 6px solid yellowgreen;
+    background-color: #e6ffe6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: yellowgreen;
+    "
+    > Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
     <p> Renseigner mes frais pour le mois : {{ todaymy }}</p>
     
     <p> Ajout d'élement(s) forfaitisé(s) </p>
     {{ form(formulaire) }}
     <br/>
+
         Total des élements forfaitisés saisis pour le mois courrant : 
                                       </br> - {{ totalF[1] }} 
                                       </br> - {{ totalF[2] }}
@@ -25,8 +51,33 @@
                                       </br> - {{ totalF[4] }}
                                       <br/>
         Total des éléments forfaitisés : {{ total }} euro(s)   <br/>
+
+
+
+        <!--
+        <table>
+        <tr>
+        Total des élements forfaitisés saisis pour le mois courrant : 
+        </tr>
+        </table>
+
+        <table>
+        <tr>                              
+        Total des éléments forfaitisés : {{ total }} euro(s)  
+        </tr> 
+                                      <td> {{ totalF[1] }} </td>
+                                      <td> {{ totalF[2] }} </td>
+                                      <td> {{ totalF[3] }} </td>
+                                      <td> {{ totalF[4] }} </td>
+                                      
+        
+        </table>
+        -->
     
+    <br/>
     <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
+
+    
 
 </div>
 {% endblock %}

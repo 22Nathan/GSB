@@ -24,16 +24,12 @@ class __TwigTemplate_0235126acbc9a54665965d8ea204e149a0b77744d8831d3276ff75b1bed
 
         $this->source = $this->getSourceContext();
 
+        $this->parent = false;
+
         $this->blocks = [
             'title' => [$this, 'block_title'],
             'body' => [$this, 'block_body'],
         ];
-    }
-
-    protected function doGetParent(array $context)
-    {
-        // line 1
-        return "base.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
@@ -42,8 +38,17 @@ class __TwigTemplate_0235126acbc9a54665965d8ea204e149a0b77744d8831d3276ff75b1bed
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "comptable/suivre.html.twig"));
 
-        $this->parent = $this->loadTemplate("base.html.twig", "comptable/suivre.html.twig", 1);
-        $this->parent->display($context, array_merge($this->blocks, $blocks));
+        // line 1
+        echo "% extends 'base.html.twig' %}
+
+";
+        // line 3
+        $this->displayBlock('title', $context, $blocks);
+        // line 4
+        echo "
+";
+        // line 5
+        $this->displayBlock('body', $context, $blocks);
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -81,7 +86,7 @@ class __TwigTemplate_0235126acbc9a54665965d8ea204e149a0b77744d8831d3276ff75b1bed
         echo twig_escape_filter($this->env, (isset($context["controller_name"]) || array_key_exists("controller_name", $context) ? $context["controller_name"] : (function () { throw new RuntimeError('Variable "controller_name" does not exist.', 12, $this->source); })()), "html", null, true);
         echo "! ✅</h1>
 
-    This friendly message is coming from:
+    This friendly message is coming from : 
     <ul>
         <li>Your controller at <code><a href=\"";
         // line 16
@@ -104,19 +109,14 @@ class __TwigTemplate_0235126acbc9a54665965d8ea204e149a0b77744d8831d3276ff75b1bed
         return "comptable/suivre.html.twig";
     }
 
-    public function isTraitable()
-    {
-        return false;
-    }
-
     public function getDebugInfo()
     {
-        return array (  92 => 17,  88 => 16,  81 => 12,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  97 => 17,  93 => 16,  86 => 12,  78 => 6,  71 => 5,  58 => 3,  51 => 5,  48 => 4,  46 => 3,  42 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{% extends 'base.html.twig' %}
+        return new Source("% extends 'base.html.twig' %}
 
 {% block title %}Hello ComptableController!{% endblock %}
 
@@ -129,7 +129,7 @@ class __TwigTemplate_0235126acbc9a54665965d8ea204e149a0b77744d8831d3276ff75b1bed
 <div class=\"example-wrapper\">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
+    This friendly message is coming from : 
     <ul>
         <li>Your controller at <code><a href=\"{{ '/var/www/html/GSB/src/Controller/ComptableController.php'|file_link(0) }}\">src/Controller/ComptableController.php</a></code></li>
         <li>Your template at <code><a href=\"{{ '/var/www/html/GSB/templates/comptable/index.html.twig'|file_link(0) }}\">templates/comptable/index.html.twig</a></code></li>

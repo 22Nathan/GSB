@@ -8,13 +8,35 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
     td, th { border: 1px solid #dddddd; text-align: left; padding: 8px;}
+
+    a:link, a:visited, #ff15 {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    a:hover, a:active, .ff15 {
+    background-color: red;
+    }
+
 </style>
 
 <div class="example-wrapper">
     <!--<h1>Hello !!! ✅</h1>-->
     <h1>Renseigner un frais hors forfait</h1>
 
-    <p style=" color: greenyellow"> Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
+    <p style=
+    "
+    border-left: 6px solid yellowgreen;
+    background-color: #e6ffe6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: yellowgreen;
+    "
+    > Connecté : {{ prenomV }} {{ nomV }} {{ idVisiteur }}  </p>
     <p> Renseigner des frais hors forfait pour le mois courrant : {{ todaymy }} </p>
 
 
@@ -50,7 +72,15 @@
   {#{% endfor %}#}
     </table>
     {% if tab is empty %}
-        <p style="color:red"> Aucun frais hors forfait ce mois ci. </p>
+        <p style=
+        "
+    border-left: 6px solid red;
+    background-color: #ffe6e6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: red;
+    "
+        > Aucun frais hors forfait ce mois ci. </p>
     {% endif %}    
     
     <p> Nouvel élement hors forfait : </p>
@@ -69,16 +99,36 @@
     #}
         
     {% if errorDate1 is defined %}
-        <p style="color: red">{{ errorDate1 }}</p>
+        <p style=
+        "
+    border-left: 6px solid red;
+    background-color: #ffe6e6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: red;
+    "
+        >{{ errorDate1 }}</p>
     {% endif %}
     {% if errorMontant is defined %}
-        <p style="color: red">{{ errorMontant }}</p>
+        <p style=
+        "
+    border-left: 6px solid red;
+    background-color: #ffe6e6;
+    text-indent: 1.5%;
+    text-max-width: 40%;
+    color: red;
+    "
+        >{{ errorMontant }}</p>
     {% endif %}
     
     <br/>
+    <span>
     <a id="btn_delete" href="{{ path( 'visiteur/menu' ) }}">Retour au menu</a>
-    <br/>
+    </span>
+    <span>
     <a id="btn_delete" href="{{ path( 'visiteur/renseigner' ) }}">Retour à renseigner</a>
+    </span>
+
 
 </div>
 {% endblock %}

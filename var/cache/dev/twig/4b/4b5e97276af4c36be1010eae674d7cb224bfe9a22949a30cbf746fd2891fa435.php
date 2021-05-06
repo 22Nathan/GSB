@@ -126,6 +126,8 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/renseigner");
         echo "\" class=\"btn\">Renseigner</a></span>
     
+    
+
     </br><br/>
     
     
@@ -199,6 +201,8 @@ class __TwigTemplate_fff8744b5102305bb305a06da6b6f162666b2305edaca587daec3da77e6
 
     <span><a href=\"{{ path( 'visiteur/renseigner' ) }}\" class=\"btn\">Renseigner</a></span>
     
+    
+
     </br><br/>
     
     

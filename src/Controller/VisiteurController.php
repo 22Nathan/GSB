@@ -31,7 +31,7 @@ class VisiteurController extends AbstractController
                 
 				
 		$form = $this->createFormBuilder(  )
-			->add( 'identifiant' , TextType::class , [ 'label' => 'Identifiant ' ] )
+			->add( 'identifiant' , TextType::class , [ 'label' => 'Identifiant ', 'attr'=> ['autocomplete' => 'off'] ])
 			->add( 'motDePasse' , PasswordType::class , [ 'label' => 'Mot de passe ' ] )
 			->add( 'valider' , SubmitType::class )
 			->add( 'annuler' , ResetType::class )
@@ -1055,7 +1055,10 @@ class VisiteurController extends AbstractController
         $request = Request::createFromGlobals() ;
         
         $form = $this->createFormBuilder(  )
-                        ->add( 'SeDéconnecter' , SubmitType::class )
+            ->add( 'SeDéconnecter' , SubmitType::class,
+            [
+                'label' => 'Se déconnecter',
+            ] )
 			->getForm() ;
         
         $form->handleRequest( $request ) ;
@@ -1152,20 +1155,38 @@ class VisiteurController extends AbstractController
                     '11' => '11', 
                     '12' => '12',    
                       ] 
-                      , 'label' => 'Mois '
-                      ,
-                      ])
+                      , 'label' => 'Sélectionner un mois '
+                      , 'attr' => [
+                            'style' => 
+                                '
+                                '
+                                    ]
+                  ])
                   ->add('annee', ChoiceType::class, [
                     'choices'  => [
                     $todayYear => $todayYear,
                     $todayYear2 => $todayYear2,
                     $todayYear3 => $todayYear3,
                       ] 
-                      , 'label' => 'Année '                      
+                      , 'label' => 'Selectionner une année '                      
                       ,
                       ])      
-                  ->add( 'valider' , SubmitType::class )
-		          ->add( 'annuler' , ResetType::class )
+                  ->add( 'valider' , SubmitType::class, [
+                        'attr' => [
+                            'class' => 'aa',
+                            'style' => 
+                                '
+                                '
+                        ]    
+                  ] )
+		          ->add( 'annuler' , ResetType::class, [
+                        'attr' => [
+                            'class' => 'aa',
+                            'style' => 
+                                '
+                                '
+                        ]    
+                  ] )
 		          ->getForm() ;    
                     
                 $builder->handleRequest( $request ) ;
@@ -1222,7 +1243,19 @@ class VisiteurController extends AbstractController
                 $form = $this->createFormBuilder(  )
                         ->add( 'SeDéconnecter' , SubmitType::class, [ 
                             'label' => 'Se déconnecter',
-                            'attr' => ['class' => 'button'],
+                            'attr' => [
+                                'class' => 'button',
+                                'style' => 
+                                    '/*
+                                    background-color: #f2f2f2; 
+                                    color: black;
+                                    padding: 7px 17px;
+                                    text-align: center;
+                                    text-decoration: none;
+                                    display: inline-block;
+                                    border: solid 1px #b3b3b3;
+                                    */'
+                                    ],
                             ])
 			            ->getForm() ;
         

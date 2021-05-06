@@ -115,6 +115,9 @@ class __TwigTemplate_ae5a79c97f33387754d4286b275757d7144ca5aa5d2a5555e5b9c2cf7a0
         // line 38
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("comptable");
         echo "\">Connexion Comptable</a></span>
+
+
+        
         
     </ul>
 </div>
@@ -179,6 +182,9 @@ class __TwigTemplate_ae5a79c97f33387754d4286b275757d7144ca5aa5d2a5555e5b9c2cf7a0
         <span><a href=\"{{ path( 'visiteur' ) }}\">Connexion Visiteur</a></span>
 
         <span><a href=\"{{ path( 'comptable' ) }}\">Connexion Comptable</a></span>
+
+
+        
         
     </ul>
 </div>

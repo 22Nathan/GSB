@@ -15,9 +15,32 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE IF EXISTS `gsbFrais`;
-CREATE DATABASE `gsbFrais` ;
-USE `gsbFrais` ;
+--
+-- Table structure for table `Comptable`
+--
+
+DROP TABLE IF EXISTS `Comptable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Comptable` (
+  `id` varchar(255) NOT NULL,
+  `nom` varchar(255) DEFAULT NULL,
+  `prenom` varchar(255) DEFAULT NULL,
+  `login` varchar(255) DEFAULT NULL,
+  `mdp` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Comptable`
+--
+
+LOCK TABLES `Comptable` WRITE;
+/*!40000 ALTER TABLE `Comptable` DISABLE KEYS */;
+INSERT INTO `Comptable` VALUES ('c01','Holone','John','hjohn','azerty');
+/*!40000 ALTER TABLE `Comptable` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Etat`
@@ -70,7 +93,7 @@ CREATE TABLE `FicheFrais` (
 
 LOCK TABLES `FicheFrais` WRITE;
 /*!40000 ALTER TABLE `FicheFrais` DISABLE KEYS */;
-INSERT INTO `FicheFrais` VALUES ('a131','022020',445848,100.00,'2020-01-04','RB'),('a131','082020',445848,100.00,'2020-01-04','RB'),('a131','112020',NULL,123.00,'2020-11-03','CL'),('a17','012021',NULL,NULL,'2021-01-28','CL'),('a17','022020',451248,45.00,'2020-12-10','RB'),('a17','022021',NULL,NULL,'2021-02-10','CL'),('a17','032020',NULL,NULL,NULL,'CR'),('a17','032021',0,0.00,'2021-03-25','CR'),('a17','112020',NULL,99.00,'2020-11-03','CL'),('a17','122020',NULL,NULL,'2020-12-10','CL'),('a55','112020',NULL,667.00,'2020-11-03','CL'),('a93','112020',NULL,66766.00,'2020-11-03','CL'),('b13','112020',NULL,99.99,'2020-11-12','CL'),('b4','112020',NULL,0.00,'2020-11-12','CL'),('d13','112020',NULL,1.30,'2020-11-06','CL'),('e5','112020',NULL,66.66,'2020-11-12','CL'),('e52','112020',NULL,1.20,'2020-11-06','CL'),('f21','112020',NULL,1.10,'2020-11-06','CL'),('f39','112020',NULL,1.00,'2020-11-06','CL'),('f4','112020',NULL,8.00,'2020-11-05','CL');
+INSERT INTO `FicheFrais` VALUES ('a131','022020',100,0.00,'2020-03-10','RB'),('a131','082020',100,0.00,'2020-03-10','RB'),('a131','112020',100,0.00,'2020-03-10','CL'),('a17','012021',100,0.00,'2020-03-10','CL'),('a17','022020',100,0.00,'2020-03-10','RB'),('a17','022021',100,0.00,'2020-03-10','CL'),('a17','032020',100,0.00,'2020-03-10','CR'),('a17','032021',100,0.00,'2020-03-10','CL'),('a17','042021',100,0.00,'2020-03-10','CL'),('a17','112020',100,0.00,'2020-03-10','CL'),('a17','122020',100,0.00,'2020-03-10','CL'),('a55','112020',100,0.00,'2020-03-10','CL'),('a93','112020',100,0.00,'2020-03-10','CL'),('b13','112020',100,0.00,'2020-03-10','CL'),('b4','112020',100,0.00,'2020-03-10','CL'),('d13','112020',100,0.00,'2020-03-10','CL'),('e5','112020',100,0.00,'2020-03-10','CL'),('e52','112020',100,0.00,'2020-03-10','CL'),('f21','112020',100,0.00,'2020-03-10','CL'),('f39','112020',100,0.00,'2020-03-10','CL'),('f4','112020',100,0.00,'2020-03-10','CL');
 /*!40000 ALTER TABLE `FicheFrais` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +147,7 @@ CREATE TABLE `LigneFraisForfait` (
 
 LOCK TABLES `LigneFraisForfait` WRITE;
 /*!40000 ALTER TABLE `LigneFraisForfait` DISABLE KEYS */;
-INSERT INTO `LigneFraisForfait` VALUES ('a17','032021','ETP',6),('a17','032021','KM',16),('a17','032021','NUI',1),('a17','032021','REP',1),('a17','112020','ETP',11),('a17','112020','KM',112),('a17','112020','NUI',13),('a17','112020','REP',14),('a17','122020','ETP',3),('a17','122020','KM',0),('a17','122020','NUI',0),('a17','122020','REP',0);
+INSERT INTO `LigneFraisForfait` VALUES ('a17','032021','ETP',6),('a17','032021','KM',16),('a17','032021','NUI',1),('a17','032021','REP',1),('a17','042021','ETP',3),('a17','042021','KM',1),('a17','042021','NUI',1),('a17','042021','REP',1),('a17','112020','ETP',11),('a17','112020','KM',112),('a17','112020','NUI',13),('a17','112020','REP',14),('a17','122020','ETP',3),('a17','122020','KM',0),('a17','122020','NUI',0),('a17','122020','REP',0);
 /*!40000 ALTER TABLE `LigneFraisForfait` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +168,7 @@ CREATE TABLE `LigneFraisHorsForfait` (
   PRIMARY KEY (`id`),
   KEY `idVisiteur` (`idVisiteur`,`mois`),
   CONSTRAINT `LigneFraisHorsForfait_ibfk_1` FOREIGN KEY (`idVisiteur`, `mois`) REFERENCES `FicheFrais` (`idVisiteur`, `mois`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +177,7 @@ CREATE TABLE `LigneFraisHorsForfait` (
 
 LOCK TABLES `LigneFraisHorsForfait` WRITE;
 /*!40000 ALTER TABLE `LigneFraisHorsForfait` DISABLE KEYS */;
-INSERT INTO `LigneFraisHorsForfait` VALUES (3,'a17','022020','test','2020-11-12',40.00),(5,'b4','112020',NULL,'2020-11-12',NULL),(6,'b4','112020',NULL,'2020-11-12',NULL),(7,'b4','112020',NULL,'2020-11-12',2.00),(8,'b4','112020',NULL,'2020-11-12',6.66),(10,'a17','112020','test1898','2020-11-26',20.00),(16,'a17','122020','aaa','2020-12-03',999.00),(39,'a17','032021','test100','2021-03-18',80.00);
+INSERT INTO `LigneFraisHorsForfait` VALUES (3,'a17','022020','test','2020-11-12',40.00),(5,'b4','112020',NULL,'2020-11-12',NULL),(6,'b4','112020',NULL,'2020-11-12',NULL),(7,'b4','112020',NULL,'2020-11-12',2.00),(8,'b4','112020',NULL,'2020-11-12',6.66),(10,'a17','112020','test1898','2020-11-26',20.00),(16,'a17','122020','aaa','2020-12-03',999.00),(39,'a17','032021','test100','2021-03-18',80.00),(42,'a17','042021','transport avion','2021-04-01',230.00),(43,'a17','042021','oui','2021-04-01',10.00);
 /*!40000 ALTER TABLE `LigneFraisHorsForfait` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-25 15:51:52
+-- Dump completed on 2021-05-06 15:33:31

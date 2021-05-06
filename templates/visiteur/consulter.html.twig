@@ -8,6 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}
     td, th { border: 1px solid #000033; text-align: left; padding: 8px; text-align: center;}
+    th, .backg { background: #b3cbcb; }
 
     a:link, a:visited {
     background-color: #f44336;
@@ -72,7 +73,7 @@
   <tr>
          <!--<td>{{ fiche['libelle'] }}</td>-->
          <!--<td></td>-->
-         <td style="color: red">{{ total }}</td>
+         <td style="color: red; text-shadow:1px 1px #f2f2f2;">{{ total }} &euro;</td>
          <td>{{ totalff }}</td>
          <!--<td>{{ fiche['montant'] }}</td>-->
          <td>{{ totfhf['montant'] }}</td>
@@ -84,7 +85,7 @@
         <br/>
     <table>
   <tr>
-    <th></th>
+    <th style="background: none; border: none"></th>
     <th>Forfait étape </th>
     <th>Frais kilométrique</th>
     <th>Nuité d'hotel</th>
@@ -92,7 +93,7 @@
     <th>Élément(s) hors forfait</th>
   </tr>  
   <tr>
-      <td><strong>Quantité</td>
+      <td class="backg"><strong>Quantité</td>
       <td><tt style="color:blue">{{ quant[0]['quantite'] }}</tt></td>
       <td><tt style="color:blue">{{ quant[1]['quantite'] }}</tt></td>
       <td><tt style="color:blue">{{ quant[2]['quantite'] }}</tt></td>
@@ -100,12 +101,12 @@
       <td><tt style="color:blue">{{ res2['compteur'] }}</tt></td>
   </tr> 
   <tr>
-      <td><strong>Montant par frais</strong></td>
-      <td>{{ aze[0] }}<br/>( <tt style="color:blue">{{ quant[0]['quantite'] }}</tt> * 110 )</td>
-      <td>{{ aze[1] }}<br/>( <tt style="color:blue">{{ quant[1]['quantite'] }}</tt> * 0.62 )</td>
-      <td>{{ aze[2] }}<br/>( <tt style="color:blue">{{ quant[2]['quantite'] }}</tt> * 80 )</td>
-      <td>{{ aze[3] }}<br/>( <tt style="color:blue">{{ quant[3]['quantite'] }}</tt> * 25 )</td>
-      <td></td>
+      <td class="backg"><strong>Montant par frais</strong></td>
+      <td>{{ aze[0] }}<br/><aa style="font-size: 75%">( <tt style="color:blue">{{ quant[0]['quantite'] }}</tt> * 110 )</aa></td>
+      <td>{{ aze[1] }}<br/><aa style="font-size: 75%">( <tt style="color:blue">{{ quant[1]['quantite'] }}</tt> * 0.62 )</aa></td>
+      <td>{{ aze[2] }}<br/><aa style="font-size: 75%">( <tt style="color:blue">{{ quant[2]['quantite'] }}</tt> * 80 )</aa></td>
+      <td>{{ aze[3] }}<br/><aa style="font-size: 75%">( <tt style="color:blue">{{ quant[3]['quantite'] }}</tt> * 25 )</aa></td>
+      <td style="border: none;"></td>
   </tr>    
     </table>
 
@@ -115,6 +116,8 @@
     
 </div>
 	 
+  
+
 </div>
 
 <div class="footer">

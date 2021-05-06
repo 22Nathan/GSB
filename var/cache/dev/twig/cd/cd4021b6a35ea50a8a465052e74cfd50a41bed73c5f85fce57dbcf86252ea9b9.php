@@ -117,6 +117,8 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("accueil");
         echo "\">Retour à la sélection</a>
 
+    
+
 </div>
 ";
         
@@ -183,6 +185,8 @@ class __TwigTemplate_4865621e86e37d83069d8392dbc7f02fcce4c7fea91cee26a964eb69114
     >{{ connection }}</p>
     
     <a id=\"btn_delete\" href=\"{{ path( 'accueil' ) }}\">Retour à la sélection</a>
+
+    
 
 </div>
 {% endblock %}

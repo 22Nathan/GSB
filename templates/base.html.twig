@@ -2,18 +2,37 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-        <link rel="stylesheet" href="public/css/styles.css" />
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}
 
-        <img src="/images/logoGSB.png" width="auto" height="auto"> 
-        <img src="{{ asset('images/logoGSB.png') }}" />
+        <title>
+            {% block title %}
+                Welcome!
+            {% endblock %}
+        </title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="public/css/styles.css" />
+        {% endblock %}
+
+        <style>
+        /*body {
+            border-left: 190px solid red;
+        }*/
+        </style>
+
+    </head>
+
+    <body>
+
+            <img src="{{ asset('images/logo.jpg') }}" width="12%" height="auto" style="position:absolute; top:2%; left:2%;"/>
+
+        {% block body %}
+        
+            <img src="{{ asset('images/logo.jpg') }}" width="20%" height="auto"/>       
              
         {% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+
     </body>
 </html>

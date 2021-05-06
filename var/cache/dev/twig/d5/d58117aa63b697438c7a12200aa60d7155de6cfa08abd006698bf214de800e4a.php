@@ -86,6 +86,15 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
     a:hover, a:active, .ff15 {
     background-color: red;
     }
+
+    /*.aa {
+        display: inline;
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        border: 1px solid blue;
+        background-color: yellow; 
+    }*/
     
 </style>
 
@@ -103,33 +112,33 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
     color: yellowgreen;
     \"
     > Connecté : ";
-        // line 38
-        echo twig_escape_filter($this->env, (isset($context["prenomV"]) || array_key_exists("prenomV", $context) ? $context["prenomV"] : (function () { throw new RuntimeError('Variable "prenomV" does not exist.', 38, $this->source); })()), "html", null, true);
+        // line 47
+        echo twig_escape_filter($this->env, (isset($context["prenomV"]) || array_key_exists("prenomV", $context) ? $context["prenomV"] : (function () { throw new RuntimeError('Variable "prenomV" does not exist.', 47, $this->source); })()), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, (isset($context["nomV"]) || array_key_exists("nomV", $context) ? $context["nomV"] : (function () { throw new RuntimeError('Variable "nomV" does not exist.', 38, $this->source); })()), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["nomV"]) || array_key_exists("nomV", $context) ? $context["nomV"] : (function () { throw new RuntimeError('Variable "nomV" does not exist.', 47, $this->source); })()), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, (isset($context["idVisiteur"]) || array_key_exists("idVisiteur", $context) ? $context["idVisiteur"] : (function () { throw new RuntimeError('Variable "idVisiteur" does not exist.', 38, $this->source); })()), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["idVisiteur"]) || array_key_exists("idVisiteur", $context) ? $context["idVisiteur"] : (function () { throw new RuntimeError('Variable "idVisiteur" does not exist.', 47, $this->source); })()), "html", null, true);
         echo "  </p>
 
     ";
-        // line 40
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire2"]) || array_key_exists("formulaire2", $context) ? $context["formulaire2"] : (function () { throw new RuntimeError('Variable "formulaire2" does not exist.', 40, $this->source); })()), 'form');
+        // line 49
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire2"]) || array_key_exists("formulaire2", $context) ? $context["formulaire2"] : (function () { throw new RuntimeError('Variable "formulaire2" does not exist.', 49, $this->source); })()), 'form');
         echo "
     <br/>
     
 </div>
     ";
-        // line 44
-        $this->env->getRuntime("Symfony\\Component\\Form\\FormRenderer")->setTheme((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 44, $this->source); })()), [0 => "foundation_5_layout.html.twig"], true);
-        // line 45
+        // line 53
+        $this->env->getRuntime("Symfony\\Component\\Form\\FormRenderer")->setTheme((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 53, $this->source); })()), [0 => "foundation_5_layout.html.twig"], true);
+        // line 54
         echo "    
     ";
-        // line 47
+        // line 56
         echo "        ";
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 47, $this->source); })()), 'form');
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["formulaire"]) || array_key_exists("formulaire", $context) ? $context["formulaire"] : (function () { throw new RuntimeError('Variable "formulaire" does not exist.', 56, $this->source); })()), 'form');
         echo "
     ";
-        // line 49
+        // line 58
         echo "
     <br/>
 
@@ -142,15 +151,17 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
     color: red;
     \"
     >";
-        // line 60
-        echo twig_escape_filter($this->env, (isset($context["mess"]) || array_key_exists("mess", $context) ? $context["mess"] : (function () { throw new RuntimeError('Variable "mess" does not exist.', 60, $this->source); })()), "html", null, true);
+        // line 69
+        echo twig_escape_filter($this->env, (isset($context["mess"]) || array_key_exists("mess", $context) ? $context["mess"] : (function () { throw new RuntimeError('Variable "mess" does not exist.', 69, $this->source); })()), "html", null, true);
         echo "</p>
 
     <br/>
     <a id=\"btn_delete\" href=\"";
-        // line 63
+        // line 72
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("visiteur/menu");
-        echo "\">Retour au menu</a>       
+        echo "\">Retour au menu</a>     
+
+      
     
 </div>
     
@@ -172,7 +183,7 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
 
     public function getDebugInfo()
     {
-        return array (  152 => 63,  146 => 60,  133 => 49,  128 => 47,  125 => 45,  123 => 44,  116 => 40,  107 => 38,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
+        return array (  161 => 72,  155 => 69,  142 => 58,  137 => 56,  134 => 54,  132 => 53,  125 => 49,  116 => 47,  73 => 6,  66 => 5,  53 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -198,6 +209,15 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
     a:hover, a:active, .ff15 {
     background-color: red;
     }
+
+    /*.aa {
+        display: inline;
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        border: 1px solid blue;
+        background-color: yellow; 
+    }*/
     
 </style>
 
@@ -239,7 +259,9 @@ class __TwigTemplate_4ab17a970937cc82793efcba23d8997db18e9ab585747ea45e6e90eed0e
     >{{ mess }}</p>
 
     <br/>
-    <a id=\"btn_delete\" href=\"{{ path( 'visiteur/menu' ) }}\">Retour au menu</a>       
+    <a id=\"btn_delete\" href=\"{{ path( 'visiteur/menu' ) }}\">Retour au menu</a>     
+
+      
     
 </div>
     
